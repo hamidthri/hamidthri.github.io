@@ -2,24 +2,33 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+subtitle: Contact Information and Professional Background
 
 profile:
   align: right
   image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
-  more_info: >
-    <!-- <p>555 your office number</p> -->
-    <p>123 Rathausstraße</p>
-    <p>Heilbronn, Baden-Württemberg</p>
+  image_circular: true # crops the image to make it circular
 
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-I'm a programmer at 42 Heilbronn, holding a Master's degree in Electrical Engineering, with a focus on AI and control systems. Proficient in C, C++, Python, and PyTorch, my passion lies in deep learning and computer vision.
+Hello,
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+I am a programmer at 42 Heilbronn with a Master's degree in Electrical Engineering, where I focused on reinforcement learning (RL) and control systems. For my master’s thesis, I worked on mobile robot navigation using RL, which allowed me to gain valuable experience in applying RL techniques to robotics problems.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+My background includes proficiency in C, C++, and Python, and I’ve developed a solid understanding of deep learning and computer vision through various projects.Recently, I’ve been exploring advancements in AI, including diffusion models, Transformer-based architectures (such as BERT), generative adversarial networks (GANs), and variational autoencoders (VAEs). I’m eager to learn more about these emerging technologies and their potential contributions to the field of AI.
+
+---
+
+For inquiries, you can contact me at taheri.hamiid@gmail.com.
+
+Stay connected through my social media profiles:
+
+- [LinkedIn](https://linkedin.com/in/hamiid-taheri)
+- [GitHub](https://github.com/hamidthri)
+- [Google Scholar](https://scholar.google.com/citations?user=lsBUB9QAAAAJ&hl=en)
+
+You can also explore my [publications](/hamidthri/publications/) for selected papers and recent research updates.
+
