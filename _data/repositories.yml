@@ -1,14 +1,11 @@
 github_users:
-  - torvalds
-  - alshedivat
+  - hamidthri
 
 repo_description_lines_max: 2
 
 github_repos:
-  - alshedivat/al-folio
-  - jekyll/jekyll
-  - twbs/bootstrap
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - mathjax/MathJax
-  - jpswalsh/academicons
+  - hamidthri/navbot_ppo
+  - hamidthri/YoloV3_from_scratch
+  - hamidthri/mlp_custom
+  - hamidthri/miniRT
+  - hamidthri/Cpp_Modules
