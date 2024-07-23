@@ -3,32 +3,29 @@
     "name": "Hamid Taheri",
     "label": "Scientist",
     "image": "",
-    "email": "albert@einstein.de",
-    "phone": "(912) 123-4567",
-    "url": "https://alshedivat.github.io/al-folio/",
-    "summary": "A German-born theoretical physicist, widely ranked among the greatest and most influential scientists of all time",
+    "email": "taheri.hamiid@gmail.com",
+    "url": "https://hamidthri.github.io",
+    "summary": "A programmer at 42 Heilbronn with a Master’s degree in Electrical Engineering, specializing in AI and control systems. Proficient in C, C++, and Python, and passionate about deep learning and computer vision, excelling in developing innovative AI solutions.",
     "location": {
-      "address": "2712 Broadway St",
-      "postalCode": "CA 94115",
-      "city": "San Francisco",
-      "countryCode": "US",
-      "region": "California"
+      "city": "Heilbronn",
+      "countryCode": "Germany",
+      "region": "Baden-Württemberg"
     },
     "profiles": [
       {
-        "network": "Twitter",
-        "username": "AlbertEinstein",
-        "url": "https://twitter.com/AlbertEinstein"
+        "network": "LinkedIn",
+        "username": "Hamid Taheri",
+        "url": "https://www.linkedin.com/in/hamiid-taheri"
       }
     ]
   },
   "education": [
     {
       "institution": "Germany, 42 Heilbronn",
-      "location": "Germany",
+      "location": "Heilbronn, Germany",
       "area": "Computer Science",
       "studyType": "Ongoing",
-      "startDate": "2023-01-01",
+      "startDate": "2023-03-01",
       "endDate": "",
       "courses": [
         "Focused on mastering C, C++, Shell, and Docker through dynamic, project-based learning.",
@@ -40,10 +37,10 @@
       "location": "Tehran, Iran",
       "area": "Electrical Engineering, Control",
       "studyType": "M.Sc.",
-      "startDate": "2019-01-01",
-      "endDate": "2022-01-01",
+      "startDate": "2019-10-01",
+      "endDate": "2022-10-01",
       "score": "16.99/20 or 3.61/4",
-      "courses": [
+      "academic research": [
         "Supervisor: Prof. Mohammad Teshnehlab",
         "Thesis Title: Continuous Control of Nonholonomic Mobile Robots Navigation Using Deep Reinforcement Learning Algorithm (PPO, DDPG)"
       ]
@@ -53,10 +50,10 @@
       "location": "Isfahan, Iran",
       "area": "Electrical Engineering, Control",
       "studyType": "B.Sc.",
-      "startDate": "2014-01-01",
-      "endDate": "2018-01-01",
+      "startDate": "2014-10-01",
+      "endDate": "2018-10-01",
       "score": "16.83/20 or 3.35/4",
-      "courses": [
+      "academic research": [
         "Supervisor: Dr. Mehdi Edrisi",
         "Thesis Title: Mentor Robot Position Control Using Forward Kinematic Concept and Mobile Sensors Data"
       ]
