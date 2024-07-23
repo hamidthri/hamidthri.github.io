@@ -134,6 +134,7 @@
       "summary": "Enhanced robot navigation safety using Deep Reinforcement Learning (PPO, DDPG) and ROS, leveraging LiDAR data. Achieved high speed and accuracy in a simple environment by implementing novel network structures.",
       "startDate": "2021",
       "endDate": "2022",
+      "url": "https://github.com/hamidthri/navbot_ppo"
     },
     {
       "name": "Control Engineering",
@@ -141,7 +142,8 @@
         "Conducted Observability/Controllability Analysis and designed a PID controller for an Electric Diesel Locomotive system, achieving a significant improvement in control efficiency."
       ],
       "startDate": "",
-      "endDate": ""
+      "endDate": "",
+      "url": ""
     },
     {
       "name": "Convolution Neural Networks",
@@ -151,6 +153,7 @@
       ],
       "startDate": "",
       "endDate": "",
+      "url": "https://github.com/hamidthri/YoloV3_from_scratch"
     },
     {
       "name": "MLP Neural Networks",
@@ -160,6 +163,7 @@
       ],
       "startDate": "",
       "endDate": "",
+      "url": "https://github.com/hamidthri/mlp_custom"
     },
     {
       "name": "Large Language Models (LLMs)",
@@ -169,6 +173,7 @@
       ],
       "startDate": "2023",
       "endDate": "",
+      "url": "https://github.com/hamidthri/Generative_AI"
     },
     {
       "name": "C, C++, and Shell",
@@ -182,8 +187,17 @@
     }
   ],
   "languages": [
-    {"language": "English", "fluency": "Fluent"},
-    {"language": "Persian", "fluency": "Native"},
-    {"language": "German", "fluency": "B1"}
+    {
+      "language": "English",
+      "fluency": "Fluent"
+    },
+    {
+      "language": "Persian",
+      "fluency": "Native"
+    },
+    {
+      "language": "German",
+      "fluency": "B1"
+    }
   ]
 }
