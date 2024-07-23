@@ -87,7 +87,7 @@
       ]
     }
   ],
-  "Specializations": [
+  "specializations": [
     {
       "level": "Expert",
       "keywords": [
@@ -177,7 +177,7 @@
         "Demonstrated expertise in NLP through hands-on experience with cutting-edge technologies."
       ],
       "startDate": "",
-      "endDate": "",
+      "endDate": ""
     },
     {
       "name": "C, C++, and Shell",
@@ -188,21 +188,10 @@
         "Created MiniRT, a ray tracing program for rendering computer-generated images."
       ],
       "startDate": "",
-      "endDate": "",
+      "endDate": ""
     }
   ],
   "languages": [
     {
       "language": "English",
-      "fluency": "Fluent"
-    },
-    {
-      "language": "Persian",
-      "fluency": "Native"
-    },
-    {
-      "language": "German",
-      "fluency": "B1"
-    }
-  ]
-}
+      "fluency": "Fluent
