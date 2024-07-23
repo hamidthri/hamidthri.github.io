@@ -5,7 +5,7 @@
     "image": "",
     "email": "taheri.hamiid@gmail.com",
     "url": "https://hamidthri.github.io",
-    "summary": "A programmer at 42 Heilbronn with a Master’s degree in Electrical Engineering, specializing in AI and control systems. Proficient in C, C++, and Python, and passionate about deep learning and computer vision, excelling in developing innovative AI solutions.",
+    "summary": "A programmer at 42 Heilbronn with a Master’s degree in Electrical Engineering, focusing on AI and control systems.",
     "location": {
       "city": "Heilbronn",
       "countryCode": "Germany",
@@ -40,7 +40,7 @@
       "startDate": "2019-10-01",
       "endDate": "2022-10-01",
       "score": "16.99/20 or 3.61/4",
-      "academic research": [
+      "courses": [
         "Supervisor: Prof. Mohammad Teshnehlab",
         "Thesis Title: Continuous Control of Nonholonomic Mobile Robots Navigation Using Deep Reinforcement Learning Algorithm (PPO, DDPG)"
       ]
@@ -53,7 +53,7 @@
       "startDate": "2014-10-01",
       "endDate": "2018-10-01",
       "score": "16.83/20 or 3.35/4",
-      "academic research": [
+      "courses": [
         "Supervisor: Dr. Mehdi Edrisi",
         "Thesis Title: Mentor Robot Position Control Using Forward Kinematic Concept and Mobile Sensors Data"
       ]
@@ -61,39 +61,40 @@
   ],
   "skills": [
     {
-      "name": "Programming Languages and DevOps Tools",
+      "name": "Languages & Tools",
       "level": "Advanced",
       "keywords": [
-        "Python",
-        "Git",
-        "Docker",
-        "MATLAB",
-        "PyTorch",
-        "ROS",
-        "C/C++",
-        "Problem Solving"
+        "- Python",
+        "- C/C++",
+        "- MATLAB",
+        "- PyTorch",
+        "- ROS",
+        "- Git",
+        "- Docker",
+        "- Problem Solving"
       ]
     },
     {
-      "name": "Engineering Software",
+      "name": "Engineering Tech",
       "level": "Proficient",
       "keywords": [
-        "CodeVision",
-        "Psim",
-        "LabView",
-        "PVSyst",
-        "Proteus",
-        "PSpice"
+        "- CodeVision",
+        "- Psim",
+        "- LabView",
+        "- PVSyst",
+        "- Proteus",
+        "- PSpice"
       ]
-    },
+    }
+  ],
+  "Specializations": [
     {
-      "name": "Specializations",
       "level": "Expert",
       "keywords": [
-        "Artificial Intelligence",
-        "Reinforcement Learning",
-        "Natural Language Processing",
         "Computer Vision",
+        "Diffusion Models",
+        "Reinforcement Learning",
+        "Large language Models",
         "Deep Learning (CNN, RNN, Transformer)",
         "Autonomous Vehicles"
       ]
@@ -157,8 +158,10 @@
     },
     {
       "name": "MLP Neural Networks",
-      "summary": "Developed fault detection in rotating machinery using Deep Stack Auto-encoder, achieving 99% accuracy and a 98% F1 score. Developed a versatile MLP library using numpy supporting regression and binary classification tasks with a focus on reducing computations.",
+      "summary": "",
       "highlights": [
+        "Developed fault detection in rotating machinery using Deep Stack Auto-encoder, achieving 99% accuracy and a 98% F1 score.",
+        "Developed a versatile MLP library using numpy supporting regression and binary classification tasks with a focus on reducing computations.",
         "Stability Analysis of Deep Learning Architectures for Perception and Control Systems in Car Suspension."
       ],
       "startDate": "",
@@ -167,23 +170,25 @@
     },
     {
       "name": "Large Language Models (LLMs)",
-      "summary": "Investigated the impact of prompt engineering on summarization using the DialogSum dataset and FLAN-T5. Evaluated a scripted dialogue summarization model using Hugging Face datasets and Transformers, demonstrating expertise in NLP.",
-      "highlights": [],
+      "summary": "",
+      "highlights": [
+        "Investigated the impact of prompt engineering on summarization using the DialogSum dataset and FLAN-T5.",
+        "Evaluated a scripted dialogue summarization model using Hugging Face datasets and Transformers.",
+        "Demonstrated expertise in NLP through hands-on experience with cutting-edge technologies."
+      ],
       "startDate": "",
       "endDate": "",
-      "url": "https://github.com/hamidthri/Generative_AI"
     },
     {
       "name": "C, C++, and Shell",
-      "summary": "Implemented Push Swap project, sorting integers efficiently using limited stack operations. Developed Minishell, a Unix shell clone in C, with core functionalities including command parsing, execution, environment management, I/O redirection, pipelines, and signal handling. Developed MiniRT, a ray tracing program for rendering computer-generated images.",
-      "highlights": [],
+      "summary": "",
+      "highlights": [
+        "Implemented Push Swap project, sorting integers efficiently using limited stack operations.",
+        "Developed Minishell, a Unix shell clone in C, featuring command parsing, execution, environment management, I/O redirection, pipelines, and signal handling.",
+        "Created MiniRT, a ray tracing program for rendering computer-generated images."
+      ],
       "startDate": "",
       "endDate": "",
-      "url": [
-        "https://github.com/hamidthri/Push_swap",
-        "https://github.com/hamidthri/minishell",
-        "https://github.com/hamidthri/miniRT"
-      ]
     }
   ],
   "languages": [
