@@ -1,7 +1,7 @@
 ---
 layout: page
 permalink: /repositories/
-title: GitHub Projects
+title: repositories
 description: A comprehensive list of my GitHub repositories and profiles.
 nav: true
 nav_order: 4
