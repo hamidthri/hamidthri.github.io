@@ -59,48 +59,44 @@
       ]
     }
   ],
+  "Specializations":[
+    {
+      "level": "Expert",
+      "keywords": [
+        "<strong>Deep Learning</strong>",
+        "<strong>Large Language Models(LLMs)</strong>",
+        "<strong>Deep Reinforcement Learning</strong>",
+        "<strong>Control Systems</strong>",
+        "<strong>Robotics</strong>",
+        "<strong>Autonomous Systems</strong>",
+        "<strong>Diffussion Models</strong>",
+        "<strong>Signal Processing</strong>"
+      ]
+    }
+  ],
   "skills": [
     {
       "name": "Languages & Tools",
       "level": "Advanced",
       "keywords": [
         "<strong>Python</strong>",
-        "<strong>C++</strong>",
+        "<strong>C++/C</strong>",
         "<strong>C</strong>",
         "<strong>MATLAB</strong>",
         "<strong>ROS</strong>",
-        "**C++**",
-        "**C**",
-        "**MATLAB**",
-        "**ROS**",
-        "**PyTorch**",
-        "**Git**",
-        "**Docker**",
-        "**Problem Solving**"
+        "<strong>PyTorch/TensorFlow</strong>",
+        "<strong>Git</strong>",
+        "<strong>Docker</strong>"
       ]
     },
     {
       "name": "Software",
       "level": "Proficient",
       "keywords": [
-        "**CodeVision**",
-        "**Psim**",
-        "**LabView**",
-        "**PVSyst**",
-        "**Proteus**",
-        "**PSpice**"
-      ]
-    },
-    {
-      "name": "Specializations",
-      "level": "Expert",
-      "keywords": [
-        "**Computer Vision**",
-        "**Deep Reinforcement Learning**",
-        "**Diffussion Models**",
-        "**Large Language Models**",
-        "**Control Systems**",
-        "**Autonomous Systems**"
+        "<strong>CodeVision</strong>",
+        "<strong>LabView</strong>",
+        "<strong>Psim</strong>",
+        "<strong>PSpice</strong>"
       ]
     }
   ],
