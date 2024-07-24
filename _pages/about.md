@@ -29,5 +29,5 @@ Stay connected through my social media profiles:
 - [GitHub](https://github.com/hamidthri)
 - [Google Scholar](https://scholar.google.com/citations?user=lsBUB9QAAAAJ&hl=en)
 
-You can also explore my [publications](/hamidthri/publications/) for selected papers and recent research updates.
+You can also explore my [publications](https://hamidthri.github.io/publications/) for selected papers and recent research updates.
 
