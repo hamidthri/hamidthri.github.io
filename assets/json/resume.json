@@ -21,9 +21,9 @@
   },
   "education": [
     {
-      "institution": "Germany, 42 Heilbronn",
+      "institution": "<strong>42 Heilbronn</strong>",
       "location": "Germany",
-      "area": "Computer Science",
+      "area": "<strong>Computer Science</strong>",
       "studyType": "Ongoing",
       "startDate": "2023-03-01",
       "endDate": "",
@@ -33,34 +33,35 @@
       ]
     },
     {
-      "institution": "Tehran, K. N. Toosi University of Technology",
+      "institution": "<strong>K. N. Toosi University of Technology</strong>",
       "location": "Tehran, Iran",
-      "area": "Electrical Engineering, Control",
+      "area": "<strong>Electrical Engineering, Control</strong>",
       "studyType": "M.Sc.",
-      "startDate": "2019-10-01",
-      "endDate": "2022-10-01",
+      "startDate": "2019-09-01",
+      "endDate": "2022-09-01",
       "score": "16.99/20 or 3.61/4",
       "courses": [
-        "Supervisor: Prof. Mohammad Teshnehlab",
-        "Thesis Title: Continuous Control of Nonholonomic Mobile Robots Navigation Using Deep Reinforcement Learning Algorithm (PPO, DDPG)"
-      ]
+        "<strong>Supervisor:</strong> Prof. Mohammad Teshnehlab",
+        "<strong>Thesis Title:</strong> Continuous Control of Nonholonomic Mobile Robots Navigation Using Deep Reinforcement Learning Algorithm (PPO, DDPG)" 
+        ]
     },
     {
-      "institution": "Isfahan, University of Isfahan",
+      "institution": "<strong>University of Isfahan</strong>",
       "location": "Isfahan, Iran",
-      "area": "Electrical Engineering, Control",
+      "area": "<strong>Electrical Engineering, Control</strong>",
       "studyType": "B.Sc.",
       "startDate": "2014-10-01",
       "endDate": "2018-10-01",
       "score": "16.83/20 or 3.35/4",
       "courses": [
-        "Supervisor: Dr. Mehdi Edrisi",
-        "Thesis Title: Mentor Robot Position Control Using Forward Kinematic Concept and Mobile Sensors Data"
+        "<strong>Supervisor:</strong> Dr. Mehdi Edrisi",
+        "<strong>Thesis Title:<strong> Mentor Robot Position Control Using Forward Kinematic Concept and Mobile Sensors Data"
       ]
     }
   ],
   "Specializations":[
     {
+      "name": "Deep Learning and Autonomous Systems",
       "level": "Expert",
       "keywords": [
         "<strong>Deep Learning</strong>",
