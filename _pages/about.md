@@ -7,6 +7,9 @@ profile:
   align: right
   image: prof_pic.jpg
   image_circular: true # crops the image to make it circular
+  more_info: >
+    <p>Hamid Taheri</p>
+    <p>Researcher</p>
 
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
@@ -21,13 +24,13 @@ My background includes proficiency in C, C++, and Python, and I’ve developed a
 
 ---
 
-For inquiries, you can contact me at taheri.hamiid@gmail.com.
+<!-- For inquiries, you can contact me at taheri.hamiid@gmail.com.
 
 Stay connected through my social media profiles:
 
 - [LinkedIn](https://linkedin.com/in/hamiid-taheri)
 - [GitHub](https://github.com/hamidthri)
-- [Google Scholar](https://scholar.google.com/citations?user=lsBUB9QAAAAJ&hl=en)
+- [Google Scholar](https://scholar.google.com/citations?user=lsBUB9QAAAAJ&hl=en) -->
 
 You can also explore my [publications](https://hamidthri.github.io/publications/) for selected papers and recent research updates.
 
