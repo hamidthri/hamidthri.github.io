@@ -59,7 +59,7 @@
       ]
     }
   ],
-  "Specializations":[
+  "specializations":[
     {
       "name": "Deep Learning and Autonomous Systems",
       "level": "Expert",
