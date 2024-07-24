@@ -64,8 +64,11 @@
       "name": "Languages & Tools",
       "level": "Advanced",
       "keywords": [
-        "- Python",
-        "**Python**",
+        "<strong>Python</strong>",
+        "<strong>C++</strong>",
+        "<strong>C</strong>",
+        "<strong>MATLAB</strong>",
+        "<strong>ROS</strong>",
         "**C++**",
         "**C**",
         "**MATLAB**",
