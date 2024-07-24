@@ -42,8 +42,8 @@
       "score": "16.99/20 or 3.61/4",
       "courses": [
         "<strong>Supervisor:</strong> Prof. Mohammad Teshnehlab",
-        "<strong>Thesis Title:</strong> Continuous Control of Nonholonomic Mobile Robots Navigation Using Deep Reinforcement Learning Algorithm (PPO, DDPG)" 
-        ]
+        "<strong>Thesis Title:</strong> Continuous Control of Nonholonomic Mobile Robots Navigation Using Deep Reinforcement Learning Algorithm (PPO, DDPG)"
+      ]
     },
     {
       "institution": "<strong>University of Isfahan</strong>",
@@ -55,11 +55,11 @@
       "score": "16.83/20 or 3.35/4",
       "courses": [
         "<strong>Supervisor:</strong> Dr. Mehdi Edrisi",
-        "<strong>Thesis Title:<strong> Mentor Robot Position Control Using Forward Kinematic Concept and Mobile Sensors Data"
+        "<strong>Thesis Title:</strong> Mentor Robot Position Control Using Forward Kinematic Concept and Mobile Sensors Data"
       ]
     }
   ],
-  "specializations":[
+  "specializations": [
     {
       "name": "Deep Learning and Autonomous Systems",
       "level": "Expert",
