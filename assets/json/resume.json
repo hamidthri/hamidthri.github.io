@@ -59,7 +59,7 @@
       ]
     }
   ],
-  "interests": [
+  "skills": [
     {
       "name": "Deep Learning and Autonomous Systems",
       "level": "Expert",
@@ -73,9 +73,7 @@
         "<strong>Diffussion Models</strong>",
         "<strong>Signal Processing</strong>"
       ]
-    }
-  ],
-  "skills": [
+    },
     {
       "name": "Languages & Tools",
       "level": "Advanced",
