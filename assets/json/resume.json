@@ -64,6 +64,9 @@
       "name": "Languages & Tools",
       "level": "Advanced",
       "keywords": [
+        // write all without **
+        "- Python",
+
         "**Python**",
         "**C++**",
         "**C**",
