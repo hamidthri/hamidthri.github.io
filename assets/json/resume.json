@@ -59,9 +59,9 @@
       ]
     }
   ],
-  "skills": [
+  "interests": [
     {
-      "name": "Deep Learning and Autonomous Systems",
+      "name": "Deep Learning & Automation",
       "level": "Expert",
       "keywords": [
         "<strong>Deep Learning</strong>",
@@ -73,7 +73,9 @@
         "<strong>Diffussion Models</strong>",
         "<strong>Signal Processing</strong>"
       ]
-    },
+    }
+  ],
+  "skills": [
     {
       "name": "Languages & Tools",
       "level": "Advanced",
