@@ -26,7 +26,7 @@ I am a programmer at **42 Heilbronn** with a Master’s degree in Electrical Eng
 </div>
 
 <p style="margin-top: 10px;">
-  I am passionate about leveraging emerging technologies to advance the field of AI, and I am eager to continue learning and growing in this dynamic area. If you are interested in my work or would like to connect, please feel free to check out my <a href="https://www.linkedin.com/in/hamiid-taheri" target="_blank">LinkedIn</a> or <a href="https://hamidthri.github.io" target="_blank">GitHub</a> profiles.
+  I am passionate about leveraging emerging technologies to advance the field of AI, and I am eager to continue learning and growing in this dynamic area. If you are interested in my work or would like to connect, please feel free to check out my <a href="https://www.linkedin.com/in/hamiid-taheri" target="_blank">LinkedIn</a> profile.
 </p>
 
 ---
