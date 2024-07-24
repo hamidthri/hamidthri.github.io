@@ -11,6 +11,7 @@ profile:
     <p>Hamid Taheri</p>
     <p>Researcher</p>
 
+
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
@@ -18,9 +19,15 @@ social: true # includes social icons at the bottom of the page
 
 Hello,
 
-I am a programmer at 42 Heilbronn with a Master's degree in Electrical Engineering, where I focused on reinforcement learning (RL) and control systems. For my master’s thesis, I worked on mobile robot navigation using RL, which allowed me to gain valuable experience in applying RL techniques to robotics problems.
+I am a programmer at **42 Heilbronn** with a Master’s degree in Electrical Engineering, specializing in **reinforcement learning (RL)** and **control systems**. My master’s thesis focused on **mobile robot navigation using RL**, where I gained valuable experience applying RL techniques to robotics challenges.
 
-My background includes proficiency in C, C++, and Python, and I’ve developed a solid understanding of deep learning and computer vision through various projects.Recently, I’ve been exploring advancements in AI, including diffusion models, Transformer-based architectures (such as GPT and BERT), generative adversarial networks (GANs), and variational autoencoders (VAEs). I’m eager to learn more about these emerging technologies and their potential contributions to the field of AI.
+<div style="font-size: 1.2em; margin-top: 10px;">
+  I am proficient in <strong>C</strong>, <strong>C++</strong>, and <strong>Python</strong>, and I have developed a strong understanding of <strong>deep learning</strong> and <strong>computer vision</strong> through various projects. Some of my recent work includes exploring advancements in AI, such as <strong>diffusion models</strong>, <strong>Transformer-based architectures</strong> (including GPT and BERT), <strong>generative adversarial networks (GANs)</strong>, and <strong>variational autoencoders (VAEs)</strong>.
+</div>
+
+<p style="margin-top: 10px;">
+  I am passionate about leveraging emerging technologies to advance the field of AI, and I am eager to continue learning and growing in this dynamic area. If you are interested in my work or would like to connect, please feel free to check out my <a href="https://www.linkedin.com/in/hamiid-taheri" target="_blank">LinkedIn</a> or <a href="https://hamidthri.github.io" target="_blank">GitHub</a> profiles.
+</p>
 
 ---
 
