@@ -59,7 +59,7 @@
       ]
     }
   ],
-  "specializations": [
+  "interests": [
     {
       "name": "Deep Learning and Autonomous Systems",
       "level": "Expert",
@@ -82,10 +82,9 @@
       "keywords": [
         "<strong>Python</strong>",
         "<strong>C++/C</strong>",
-        "<strong>C</strong>",
         "<strong>MATLAB</strong>",
-        "<strong>ROS</strong>",
         "<strong>PyTorch/TensorFlow</strong>",
+        "<strong>ROS</strong>",
         "<strong>Git</strong>",
         "<strong>Docker</strong>"
       ]
