@@ -3,29 +3,32 @@
     "name": "Hamid Taheri",
     "label": "Scientist",
     "image": "",
-    "email": "taheri.hamiid@gmail.com",
-    "url": "https://hamidthri.github.io",
-    "summary": "A programmer at 42 Heilbronn with a Master’s degree in Electrical Engineering, focusing on AI and control systems.",
+    "email": "albert@einstein.de",
+    "phone": "(912) 123-4567",
+    "url": "https://alshedivat.github.io/al-folio/",
+    "summary": "A German-born theoretical physicist, widely ranked among the greatest and most influential scientists of all time",
     "location": {
-      "city": "Heilbronn",
-      "countryCode": "Germany",
-      "region": "Baden-Württemberg"
+      "address": "2712 Broadway St",
+      "postalCode": "CA 94115",
+      "city": "San Francisco",
+      "countryCode": "US",
+      "region": "California"
     },
     "profiles": [
       {
-        "network": "LinkedIn",
-        "username": "Hamid Taheri",
-        "url": "https://www.linkedin.com/in/hamiid-taheri"
+        "network": "Twitter",
+        "username": "AlbertEinstein",
+        "url": "https://twitter.com/AlbertEinstein"
       }
     ]
   },
   "education": [
     {
       "institution": "Germany, 42 Heilbronn",
-      "location": "Heilbronn, Germany",
+      "location": "Germany",
       "area": "Computer Science",
       "studyType": "Ongoing",
-      "startDate": "2023-03-01",
+      "startDate": "2023-01-01",
       "endDate": "",
       "courses": [
         "Focused on mastering C, C++, Shell, and Docker through dynamic, project-based learning.",
@@ -37,8 +40,8 @@
       "location": "Tehran, Iran",
       "area": "Electrical Engineering, Control",
       "studyType": "M.Sc.",
-      "startDate": "2019-10-01",
-      "endDate": "2022-10-01",
+      "startDate": "2019-01-01",
+      "endDate": "2022-01-01",
       "score": "16.99/20 or 3.61/4",
       "courses": [
         "Supervisor: Prof. Mohammad Teshnehlab",
@@ -50,8 +53,8 @@
       "location": "Isfahan, Iran",
       "area": "Electrical Engineering, Control",
       "studyType": "B.Sc.",
-      "startDate": "2014-10-01",
-      "endDate": "2018-10-01",
+      "startDate": "2014-01-01",
+      "endDate": "2018-01-01",
       "score": "16.83/20 or 3.35/4",
       "courses": [
         "Supervisor: Dr. Mehdi Edrisi",
@@ -61,40 +64,39 @@
   ],
   "skills": [
     {
-      "name": "Languages & Tools",
+      "name": "Programming Languages and DevOps Tools",
       "level": "Advanced",
       "keywords": [
-        "- Python",
-        "- C/C++",
-        "- MATLAB",
-        "- PyTorch",
-        "- ROS",
-        "- Git",
-        "- Docker",
-        "- Problem Solving"
+        "Python",
+        "Git",
+        "Docker",
+        "MATLAB",
+        "PyTorch",
+        "ROS",
+        "C/C++",
+        "Problem Solving"
       ]
     },
     {
-      "name": "Engineering Tech",
+      "name": "Engineering Software",
       "level": "Proficient",
       "keywords": [
-        "- CodeVision",
-        "- Psim",
-        "- LabView",
-        "- PVSyst",
-        "- Proteus",
-        "- PSpice"
+        "CodeVision",
+        "Psim",
+        "LabView",
+        "PVSyst",
+        "Proteus",
+        "PSpice"
       ]
-    }
-  ],
-  "specializations": [
+    },
     {
+      "name": "Specializations",
       "level": "Expert",
       "keywords": [
-        "Computer Vision",
-        "Diffusion Models",
+        "Artificial Intelligence",
         "Reinforcement Learning",
-        "Large language Models",
+        "Natural Language Processing",
+        "Computer Vision",
         "Deep Learning (CNN, RNN, Transformer)",
         "Autonomous Vehicles"
       ]
@@ -158,10 +160,8 @@
     },
     {
       "name": "MLP Neural Networks",
-      "summary": "",
+      "summary": "Developed fault detection in rotating machinery using Deep Stack Auto-encoder, achieving 99% accuracy and a 98% F1 score. Developed a versatile MLP library using numpy supporting regression and binary classification tasks with a focus on reducing computations.",
       "highlights": [
-        "Developed fault detection in rotating machinery using Deep Stack Auto-encoder, achieving 99% accuracy and a 98% F1 score.",
-        "Developed a versatile MLP library using numpy supporting regression and binary classification tasks with a focus on reducing computations.",
         "Stability Analysis of Deep Learning Architectures for Perception and Control Systems in Car Suspension."
       ],
       "startDate": "",
@@ -170,28 +170,37 @@
     },
     {
       "name": "Large Language Models (LLMs)",
-      "summary": "",
-      "highlights": [
-        "Investigated the impact of prompt engineering on summarization using the DialogSum dataset and FLAN-T5.",
-        "Evaluated a scripted dialogue summarization model using Hugging Face datasets and Transformers.",
-        "Demonstrated expertise in NLP through hands-on experience with cutting-edge technologies."
-      ],
+      "summary": "Investigated the impact of prompt engineering on summarization using the DialogSum dataset and FLAN-T5. Evaluated a scripted dialogue summarization model using Hugging Face datasets and Transformers, demonstrating expertise in NLP.",
+      "highlights": [],
       "startDate": "",
-      "endDate": ""
+      "endDate": "",
+      "url": "https://github.com/hamidthri/Generative_AI"
     },
     {
       "name": "C, C++, and Shell",
-      "summary": "",
-      "highlights": [
-        "Implemented Push Swap project, sorting integers efficiently using limited stack operations.",
-        "Developed Minishell, a Unix shell clone in C, featuring command parsing, execution, environment management, I/O redirection, pipelines, and signal handling.",
-        "Created MiniRT, a ray tracing program for rendering computer-generated images."
-      ],
+      "summary": "Implemented Push Swap project, sorting integers efficiently using limited stack operations. Developed Minishell, a Unix shell clone in C, with core functionalities including command parsing, execution, environment management, I/O redirection, pipelines, and signal handling. Developed MiniRT, a ray tracing program for rendering computer-generated images.",
+      "highlights": [],
       "startDate": "",
-      "endDate": ""
+      "endDate": "",
+      "url": [
+        "https://github.com/hamidthri/Push_swap",
+        "https://github.com/hamidthri/minishell",
+        "https://github.com/hamidthri/miniRT"
+      ]
     }
   ],
   "languages": [
     {
       "language": "English",
-      "fluency": "Fluent
+      "fluency": "Fluent"
+    },
+    {
+      "language": "Persian",
+      "fluency": "Native"
+    },
+    {
+      "language": "German",
+      "fluency": "B1"
+    }
+  ]
+}
