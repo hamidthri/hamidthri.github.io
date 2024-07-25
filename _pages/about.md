@@ -9,8 +9,8 @@ profile:
   image_circular: true # crops the image to make it circular
   more_info: >
     <div style="font-size: 1.2em; margin-top: 10px;">
-      <p> Hamid Taheri </p>
-      <p> Researcher </p>
+      <p style="display: block;">Hamid Taheri</p>
+      <p style="display: block;">Researcher</p>
     </div>
 
 
