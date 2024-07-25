@@ -8,8 +8,11 @@ profile:
   image: prof_pic.jpg
   image_circular: true # crops the image to make it circular
   more_info: >
-    <p>Hamid Taheri,</p>
-    <p>Researcher</p>
+    <div style="font-size: 1.2em; margin-top: 10px;">
+      <p> Hamid Taheri </p>
+      <p> Researcher </p>
+    </div>
+
 
 
 news: true # includes a list of news items
