@@ -18,7 +18,9 @@ selected_papers: true # Includes a list of papers marked as "selected={true}"
 social: true # Includes social icons at the bottom of the page
 ---
 
-Hello,
+<div style="font-size: 1.2em; margin-top: 10px;">
+  Hello,
+</div>
 
 <div style="font-size: 1.2em; margin-top: 10px;">
   I am a programmer at <strong>42 Heilbronn</strong> with a Master’s degree in Electrical Engineering, specializing in <strong>reinforcement learning (RL)</strong> and <strong>control systems</strong>. My master’s thesis focused on <strong>mobile robot navigation using RL</strong>, where I gained valuable experience applying RL techniques to robotics challenges. I am proficient in <strong>C</strong>, <strong>C++</strong>, and <strong>Python</strong>, and I have developed a strong understanding of <strong>deep learning</strong> and <strong>computer vision</strong> through various projects. Some of my recent work includes exploring advancements in AI, such as <strong>diffusion models</strong>, <strong>Transformer-based architectures</strong> (including GPT and BERT), <strong>generative adversarial networks (GANs)</strong>, and <strong>variational autoencoders (VAEs)</strong>.
