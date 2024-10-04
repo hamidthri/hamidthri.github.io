@@ -5,7 +5,7 @@ inline: true
 related_posts: false
 ---
 
-I begun studying at 42 Heilbronn, an innovative coding school known for peer-to-peer learning and project-based curriculum. I'm focusing on C, C++, shell scripting, algorithms, data structures, and containerization. I look forward to developing my skills and working on real-world projects.
+I started studying at 42 Heilbronn, a coding school known for peer-to-peer learning and project-based curriculum. I'm focusing on C, C++, shell scripting, algorithms, data structures, and containerization. I look forward to developing my skills and working on real-world projects.
 
 
 
