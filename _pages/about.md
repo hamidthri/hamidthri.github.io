@@ -14,8 +14,6 @@ profile:
       <p style="margin: 0; font-size: 1.2em;">Researcher</p>
     </div>
 
-    
-
 news: true
 selected_papers: true
 social: true
@@ -26,19 +24,19 @@ social: true
 </div>
 
 <div style="font-size: 1.2em; margin-top: 10px;">
-  I’m a researcher with a Master’s in Electrical Engineering - Control, specializing in <strong>computer vision</strong>, <strong>reinforcement learning</strong> and <strong>control systems</strong>. My thesis focused on <strong>mobile robot navigation using RL</strong>, where I applied deep learning and control techniques in robotics.
+  I’m a researcher with a Master’s degree in Electrical Engineering – Control, with a focus on computer vision, reinforcement learning, and control systems. My thesis centered on mobile robot navigation using RL, applying deep learning and control techniques in robotics.
 </div>
 
 <p style="margin-top: 10px;">
-  I recently completed an internship in the <strong>Computer Vision</strong> team at <strong>Schwarz IT KG</strong>, where I contributed to AI-driven projects and enhanced my expertise in <strong>Python</strong>, <strong>C++</strong>, and <strong>deep learning</strong>.
+  I recently completed an internship in the computer vision team at Schwarz IT KG, where I contributed to AI-based projects and advanced my skills in Python, C++, and deep learning.
 </p>
 
 <div style="margin-top: 10px;">
-  My recent explorations include <strong>diffusion models</strong>, <strong>Transformers</strong> (GPT, BERT), <strong>GANs</strong>, and <strong>VAEs</strong>. I enjoy blending theory and application in the AI and robotics domain.
+  My recent work involves computer vision, reinforcement learning, and imitation learning, with additional exploration in diffusion models and Transformers. I enjoy working at the intersection of learning-based methods and robotics.
 </div>
 
 <div style="margin-top: 20px;">
-  I am currently open to Ph.D. opportunities in <strong>robotics</strong>, <strong>autonomous systems</strong>, and <strong>deep reinforcement learning</strong>.
+  <strong>I am currently open to Ph.D. opportunities</strong> in computer vision, robotics, autonomous systems, and deep reinforcement learning.
 </div>
 
 ---
