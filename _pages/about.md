@@ -8,10 +8,13 @@ profile:
   image: prof_pic.jpg
   image_circular: true
   more_info: >
-    <div style="font-size: 1.2em; margin-top: 10px; text-align: center;">
-      <p style="display: block; margin: 0;">Hamid Taheri</p>
-      <p style="display: block; margin: 0;">Researcher</p>
+    <div style="text-align: center; margin-top: 10px;">
+      <img src="/assets/img/prof_pic.jpg" alt="Hamid Taheri" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto;" />
+      <p style="margin: 5px 0 0 0; font-size: 1.2em;">Hamid Taheri</p>
+      <p style="margin: 0; font-size: 1.2em;">Researcher</p>
     </div>
+
+    
 
 news: true
 selected_papers: true
