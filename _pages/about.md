@@ -30,7 +30,7 @@ social: true
 </p>
 
 <div style="margin-top: 20px;">
-  I am currently open to new research opportunities and seeking a <strong>Ph.D. position</strong> in <strong>robotics</strong>, <strong>reinforcement learning</strong>, and <strong>autonomous systems</strong>. 
+  I am currently open to new research opportunities and seeking a <strong>Ph.D. position</strong> in <strong>robotics</strong>, <strong>reinforcement learning</strong>, and <strong>control systems</strong>. 
 </div>
 
 ---
