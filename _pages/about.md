@@ -1,7 +1,7 @@
 ---
 layout: about
 title: About
-subtitle: Researcher in deep reinforcement learning and trustworthy robot navigation
+subtitle: Researcher in Deep Reinforcement Learning and Compter Vision
 permalink: /
 
 profile:
