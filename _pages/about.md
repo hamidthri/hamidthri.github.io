@@ -38,7 +38,7 @@ Right now I’m an **AI Innovation Intern** at PreZero Stiftung & Co. KG in Neck
   <span style="font-size: 1.15em; font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600;">
     Looking ahead:
   </span>
-  I’m looking for the right Ph.D. program or research engineering role where I can keep advancing deep reinforcement learning for robot navigation, trustworthy perception, and robust control systems.
+  I’m open to Ph.D. programs and research engineering roles where deep reinforcement learning, robot navigation, trustworthy perception, and robust control are at the core of the work.
 </p>
 
 ---
