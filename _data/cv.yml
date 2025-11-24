@@ -1,97 +1,171 @@
 - title: General Information
   type: map
   contents:
-    - name: Full Name
-      value: Albert Einstein
-    - name: Date of Birth
-      value: 14th March 1879
-    - name: Languages
-      value: English, German
+    - name: Name
+      value: Hamid Taheri
+    - name: Location
+      value: Heilbronn, Germany
+    - name: Phone
+      value: +49 1764 5657055
+    - name: Email
+      value: taheri.hamiid@gmail.com
+    - name: LinkedIn
+      value: hamiid-taheri
+    - name: GitHub
+      value: hamidthri
+
+- title: Research Interests
+  type: list
+  contents:
+    - Reinforcement Learning
+    - Computer Vision
+    - Autonomous Systems
+    - Control Systems
+    - Safe Navigation
+    - Deep Learning
 
 - title: Education
   type: time_table
   contents:
-    - title: PhD
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1905
+    - title: Software Developer (Curriculum)
+      institution: 42 Heilbronn, Germany
+      year: 2023 – 2025
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Federal teaching diploma
-      institution: Eidgenössische Technische Hochschule, Zurich, Switzerland
-      year: 1900
+        - Specializing in C, C++, shell scripting, and Docker through intensive project-based learning.
+        - Built projects ranging from game engines to Dockerized web services and networking utilities.
+    - title: M.Sc. Electrical Engineering – Control
+      institution: K. N. Toosi University of Technology, Tehran, Iran
+      year: 2019 – 2022
       description:
-        - Description 1.
-        - Description 2.
+        - Thesis "Continuous Control of Nonholonomic Mobile Robots Navigation Using Deep Reinforcement Learning (PPO, DDPG)".
+        - GPA 16.99/20 (3.61/4).
+    - title: B.Sc. Electrical Engineering – Control
+      institution: University of Isfahan, Isfahan, Iran
+      year: 2014 – 2018
+      description:
+        - Thesis "Mentor Robot Position Control Using Forward Kinematic Concept and Mobile Sensors".
+        - GPA 16.83/20 (3.35/4).
 
-- title: Experience
+- title: Professional Experience
   type: time_table
   contents:
-    - title: Professor of Theoretical Physics
-      institution: Institute for Advanced Study, Princeton University
-      year: 1933 - 1955
+    - title: AI Innovation Intern
+      institution: PreZero Stiftung & Co. KG, Neckarsulm, Germany
+      year: 2025 – Present
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Visiting Professor
-      institution: California Institute of Technology, Pasadena, California, US
-      year: 1933
+        - Develop TabPFN-based transformer models for waste volume forecasting.
+        - Optimize collection routes and resource allocation via time-series analysis and operations research tooling.
+    - title: Computer Vision Engineer Intern
+      institution: Schwarz IT KG, Germany
+      year: 2024 – 2025
       description:
-        - Description 1.
-        - Description 2.
-
-    - title: Director
-      institution: Kaiser Wilhelm Institute for Physics, Berlin, Germany.
-      year: 1917-1933
-
-    - title: Professor of Theoretical Physics
-      institution: Karl-Ferdinand University, Prague, Czechoslovakia
-      year: 1911 - 1917
+        - Deployed CenterNet for real-time object detection in retail automation.
+        - Implemented ViT-driven anomaly detection reaching 94% accuracy on industrial datasets.
+        - Built OCR workflows with PaddleOCR and Doctr; integrated models into Dockerized, Azure-backed CI/CD pipelines.
+    - title: Instrumentation Engineer
+      institution: South Isfahan Power Station, Iran
+      year: 2017 – 2018
       description:
+        - Calibrated and optimized plant control and instrumentation systems for reliability.
 
-    - title: Associate Professor of Theoretical Physics
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1909 - 1911
-
-- title: Open Source Projects
+- title: Teaching Experience
   type: time_table
   contents:
-    - title: <a href="https://github.com/alshedivat/al-folio">al-folio</a>
-      year: 2015-now
-      description: A beautiful, simple, clean, and responsive Jekyll theme for academics.
+    - title: Teaching Assistant – Neural Networks and Deep Learning
+      institution: K. N. Toosi University of Technology, Tehran, Iran
+      year: 2020 – 2021
+      description:
+        - Assisted lectures, graded coursework, and mentored graduate students.
+    - title: Mathematics Instructor
+      institution: Private / Institute-based Classes, Isfahan, Iran
+      year: 2016 – 2017
+      description:
+        - Taught analytic geometry and calculus for university entrance preparation.
 
-- title: Honors and Awards
-  type: time_table
-  contents:
-    - year: 1921
-      items:
-        - Nobel Prize in Physics
-        - Matteucci Medal
-    - year: 2029
-      items:
-        - Max Planck Medal
-
-- title: Academic Interests
-  type: nested_list
-  contents:
-    - title: Topic 1.
-      items:
-        - Description 1.
-        - Description 2.
-    - title: Topic 2.
-      items:
-        - Description 1.
-        - Description 2.
-
-- title: Other Interests
+- title: Research Publications
   type: list
   contents:
-    - <u>Hobbies:</u> Hobby 1, Hobby 2, etc.
+    - H. Taheri, S. R. Hosseini, M. A. Nekoei, "Deep Reinforcement Learning with Enhanced PPO for Safe Mobile Robot Navigation", arXiv:2405.16266, 2024. (Accepted for publication)
+    - S. R. Hosseini, H. Taheri, M. Teshnehlab, "ENet-21: An Optimized Light CNN Structure for Lane Detection", arXiv:2403.19782, 2024.
+
+- title: Research Projects
+  type: time_table
+  contents:
+    - title: 3D Classification and Segmentation (2025)
+      description:
+        - Benchmarked PointNet, PointNet++, PointMLP, and DGCNN on ModelNet40 and ShapeNet for classification and part segmentation. [GitHub]
+    - title: RL-Playground (2025)
+      description:
+        - Modular RL/IL toolkit implementing PPO, SAC, GAIL, and MaxEnt IRL across Gym environments. [GitHub]
+    - title: Mobile Robot Navigation using RL (PPO)
+      description:
+        - ROS + LiDAR navigation stack with PPO achieving 85% success rate in Gazebo via sensor fusion and collision avoidance. [GitHub]
+    - title: ViT-AnomalyDetection (2024)
+      description:
+        - Hybrid ViT/CNN model for industrial anomaly detection on MVTec dataset. [GitHub]
+    - title: MiniRT – Ray Tracer (2024)
+      description:
+        - C-based ray tracer with advanced lighting for photorealistic rendering. [GitHub]
+    - title: MPC-based Inverted Pendulum Stabilization (2020)
+      description:
+        - Designed linear MPC with state/input constraints in MATLAB for cart-pendulum control under disturbances.
+
+- title: Technical Skills
+  type: nested_list
+  contents:
+    - title: Programming
+      items:
+        - C/C++, Python, MATLAB, Shell
+    - title: AI/ML
+      items:
+        - PyTorch, TensorFlow, Scikit-learn, OpenCV
+    - title: Robotics
+      items:
+        - ROS/ROS2, Gazebo, MuJoCo, PyBullet
+    - title: DevOps
+      items:
+        - Docker, Git, Azure, CI/CD pipelines
+    - title: Reinforcement Learning
+      items:
+        - PPO, DDPG, SAC, GAIL, MaxEnt IRL
+    - title: Vision
+      items:
+        - Object detection (YOLO/CenterNet), segmentation, anomaly detection, OCR
+
+- title: Awards and Achievements
+  type: time_table
+  contents:
+    - title: Top Performer (Virtual & Physical) – Audi DeepRacer RL Competition
+      institution: Germany
+      year: 2024 – 2025
+    - title: Scholarship Recipient – Schwarz Stiftung
+      institution: 42 Heilbronn, Germany
+      year: 2024
+    - title: Ranked 67th – National Master’s Entrance Exam (Top 0.2%)
+      institution: Iran
+      year: 2019
+    - title: Exceptionally Talented Student
+      institution: Iran University of Science and Technology
+      year: 2018
+    - title: Top 3 Graduate – B.Sc. Program
+      institution: University of Isfahan
+      year: 2018
+
+- title: Certifications
+  type: list
+  contents:
+    - Generative AI with Large Language Models – Coursera (2024)
+    - Sequence Models – Coursera (2023)
+    - Supervised Machine Learning: Regression and Classification – Coursera (2023)
+    - Natural Language Processing with TensorFlow – Coursera (2023)
+    - Convolutional Neural Networks – Coursera (2022)
+
+- title: Languages
+  type: map
+  contents:
+    - name: English
+      value: Fluent
+    - name: German
+      value: B1
+    - name: Persian
+      value: Native

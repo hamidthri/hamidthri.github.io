@@ -1,16 +1,18 @@
 ---
 layout: about
 title: About
+subtitle: Researcher in deep reinforcement learning and trustworthy robot navigation
 permalink: /
 
 profile:
   align: right
   image: prof_pic.jpg
   image_circular: true
+  image_alt: Portrait of Hamid Taheri
   more_info: >
-    <div style="font-size: 1.2em; margin-top: 10px; text-align: center;">
+    <div style="font-size: 1.1em; margin-top: 10px; text-align: center;">
       <p style="display: block; margin: 0;">Hamid Taheri</p>
-      <p style="display: block; margin: 0;">Researcher</p>
+      <p style="display: block; margin: 0;">Robotics & AI Researcher</p>
     </div>
 
 news: true
@@ -18,26 +20,25 @@ selected_papers: true
 social: true
 ---
 
-<div style="font-size: 1.2em; margin-top: 10px;">
-  Hello,
-</div>
+Hi, I’m Hamid. I design learning-based control and perception systems that keep robots reliable when operating in uncertain, dynamic environments.
 
-<div style="font-size: 1.2em; margin-top: 10px;">
-  I’m a researcher with a Master’s degree in Electrical Engineering – Control, with a focus on computer vision, reinforcement learning, and control systems. My thesis centered on mobile robot navigation using RL, applying deep learning and control techniques in robotics.
-</div>
+I completed my M.Sc. in Electrical Engineering – Control at K. N. Toosi University of Technology, where my thesis focused on safe mobile robot navigation via an enhanced PPO pipeline. Later, 42 Heilbronn became the place where I sharpened my low-level systems skills across C, C++, Docker, and rigorous debugging workflows.
 
-<p style="margin-top: 10px;">
-  I recently completed an internship in the computer vision team at Schwarz IT KG, where I contributed to AI-based projects and advanced my skills in Python, C++, and deep learning.
-</p>
-
-<div style="margin-top: 10px;">
-  My recent work involves computer vision, reinforcement learning, and imitation learning, with additional exploration in diffusion models and Transformers. I enjoy working at the intersection of learning-based methods and robotics.
-</div>
-
-<div style="margin-top: 20px;">
-  <strong>I am currently open to Ph.D. opportunities</strong> in computer vision, robotics, autonomous systems, and deep reinforcement learning.
-</div>
+Right now I’m an **AI Innovation Intern** at PreZero Stiftung & Co. KG in Neckarsulm, Germany. I’m working on transformer-based (TabPFN) models that forecast waste volumes and help optimize how we plan collection routes. Before that, I was a **Computer Vision Engineer Intern** at Schwarz IT KG, building real-time detection pipelines for inline quality control with PyTorch, OpenCV, and TensorRT.
 
 ---
 
-You can also explore my [publications](https://hamidthri.github.io/publications/) for selected works.
+### What I’m focused on
+
+- Deep reinforcement learning for mobile robot navigation and sim-to-real transfer  
+- Computer vision for inline quality control and anomaly detection  
+- Systems-level programming and tooling for robust, production-grade ML  
+
+<p>
+  <span style="font-size: 1.15em; font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 600;">
+    Looking ahead:
+  </span>
+  I’m looking for the right Ph.D. program or research engineering role where I can keep advancing deep reinforcement learning for robot navigation, trustworthy perception, and robust control systems.
+</p>
+
+---

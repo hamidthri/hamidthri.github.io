@@ -1,8 +1,9 @@
 ---
 layout: default
 permalink: /blog/
+# blog page temporarily disabled from navigation
 title: blog
-nav: true
+nav: false
 nav_order: 1
 pagination:
   enabled: true
@@ -27,6 +28,7 @@ pagination:
     <h1>{{ site.blog_name }}</h1>
     <h2>{{ site.blog_description }}</h2>
   </div>
+  <p class="mb-4">I use this space to document experiments in deep RL, robotics, and computer vision. Expect thoughtful but occasional updates—quality over volume.</p>
   {% endif %}
 
 {% if site.display_tags or site.display_categories %}

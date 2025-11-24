@@ -1,11 +1,12 @@
 ---
+# projects page temporarily disabled from navigation
 layout: page
 title: projects
 permalink: /projects/
-description: A growing collection of your cool projects.
-nav: true
+description: Selected research and engineering projects spanning deep reinforcement learning, robotics, computer vision, and systems programming.
+nav: false
 nav_order: 3
-display_categories: [work, fun]
+display_categories: [research, systems]
 horizontal: false
 ---
 

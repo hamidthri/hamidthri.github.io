@@ -27,8 +27,9 @@ layout: default
           {% endif %}
           {% capture sizes %}(min-width: {{site.max_width}}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
       30vw, 95vw"{% endcapture %}
+          {% assign profile_image_alt = page.profile.image_alt | default: site.first_name | append: ' ' | append: site.last_name %}
           {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
+            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=profile_image_alt
             cache_bust=true
           %}
         {% endif %}
@@ -48,13 +49,15 @@ layout: default
       {% include news.liquid limit=true %}
     {% endif %}
 
-    <!-- Latest posts -->
+    {% comment %}
+    <!-- Latest posts temporarily disabled -->
     {% if site.latest_posts.enabled %}
       <h2>
         <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
       </h2>
       {% include latest_posts.liquid %}
     {% endif %}
+    {% endcomment %}
 
     <!-- Selected papers -->
     {% if page.selected_papers %}

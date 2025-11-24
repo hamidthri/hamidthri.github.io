@@ -7,6 +7,16 @@ nav: true
 nav_order: 2
 ---
 
+My research currently focuses on deep reinforcement learning for safe mobile robot navigation and efficient perception models.
+
+
+<!-- 
+- *Deep Reinforcement Learning with Enhanced PPO for Safe Mobile Robot Navigation* (2024) – 26 citations  
+- *ENet-21: An Optimized Light CNN Structure for Lane Detection* (2024) – 9 citations  
+- *COVID-19 Detection Based on Blood Test Parameters Using Various Artificial Intelligence Methods* (2024) – 1 citation  
+
+The detailed entries below are generated from my BibTeX database. -->
+
 <!-- _pages/publications.md -->
 
 <!-- Bibsearch Feature -->
