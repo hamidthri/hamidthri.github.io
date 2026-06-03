@@ -27,12 +27,10 @@ export function startScene2d(
   let robot = { x: 0, y: 0, vx: 0, vy: 0, heading: 0 };
   let goal = { x: 0, y: 0 };
   let trail: { x: number; y: number }[] = [];
+  let mouseInside = false;
   let t0 = performance.now();
   let rafId = 0;
   let running = false;
-  let goalAge = 0;
-  let reachedFlash = 0;
-  let lastMove = -1e9; // timestamp of last cursor move; idle → autonomous seeking
 
   const css = getComputedStyle(document.documentElement);
   const ACC = (css.getPropertyValue('--accent') || '#37e7df').trim();
@@ -92,22 +90,12 @@ export function startScene2d(
 
   function step(now: number) {
     const time = (now - t0) / 1000;
-    // cursor steers the robot only while it's actively moving; once it's been
-    // still (or left the canvas) for ~1.8s, the robot seeks targets on its own.
-    const cursorActive = now - lastMove < 1800;
-    if (!cursorActive) {
-      goalAge++;
-      const reach = Math.min(W, H) * 0.045;
-      if (Math.hypot(goal.x - robot.x, goal.y - robot.y) < reach || goalAge > 360) {
-        goal.x = rand(W * 0.42, W * 0.93);
-        goal.y = rand(H * 0.14, H * 0.86);
-        goalAge = 0;
-        reachedFlash = 1; // pulse the reticle to show it found the target
-      }
+    if (!mouseInside) {
+      goal.x = W * (0.62 + 0.26 * Math.sin(time * 0.35));
+      goal.y = H * (0.5 + 0.34 * Math.sin(time * 0.55 + 1.3));
     }
-    if (reachedFlash > 0) reachedFlash *= 0.92;
 
-    const maxSpeed = Math.min(W, H) * 0.01125; // 2.5× the original 0.0045
+    const maxSpeed = Math.min(W, H) * 0.0045;
     const sx = goal.x - robot.x, sy = goal.y - robot.y;
     const sd = Math.hypot(sx, sy) || 1;
     let dvx = (sx / sd) * maxSpeed, dvy = (sy / sd) * maxSpeed;
@@ -128,8 +116,8 @@ export function startScene2d(
     if (robot.y < m) dvy += (m - robot.y) * 0.02;
     if (robot.y > H - m) dvy -= (robot.y - (H - m)) * 0.02;
 
-    robot.vx += (dvx - robot.vx) * 0.14;
-    robot.vy += (dvy - robot.vy) * 0.14;
+    robot.vx += (dvx - robot.vx) * 0.08;
+    robot.vy += (dvy - robot.vy) * 0.08;
     const sp = Math.hypot(robot.vx, robot.vy);
     if (sp > maxSpeed) { robot.vx = (robot.vx / sp) * maxSpeed; robot.vy = (robot.vy / sp) * maxSpeed; }
     robot.x += robot.vx; robot.y += robot.vy;
@@ -191,8 +179,8 @@ export function startScene2d(
     // goal reticle
     ctx.save();
     ctx.translate(goal.x, goal.y);
-    ctx.strokeStyle = SIG; ctx.lineWidth = 1.2 + reachedFlash * 1.5;
-    const rr = 8 + Math.sin(time * 4) * 1.5 + reachedFlash * 12;
+    ctx.strokeStyle = SIG; ctx.lineWidth = 1.2;
+    const rr = 8 + Math.sin(time * 4) * 1.5;
     ctx.beginPath(); ctx.arc(0, 0, rr, 0, Math.PI * 2); ctx.stroke();
     ctx.beginPath();
     ctx.moveTo(-rr - 4, 0); ctx.lineTo(-rr + 3, 0);
@@ -200,19 +188,14 @@ export function startScene2d(
     ctx.moveTo(0, -rr - 4); ctx.lineTo(0, -rr + 3);
     ctx.moveTo(0, rr - 3); ctx.lineTo(0, rr + 4); ctx.stroke();
     ctx.fillStyle = SIG; ctx.beginPath(); ctx.arc(0, 0, 1.6, 0, Math.PI * 2); ctx.fill();
-    // expanding "target found" pulse
-    if (reachedFlash > 0.03) {
-      ctx.beginPath(); ctx.arc(0, 0, rr + (1 - reachedFlash) * 34, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255,193,94,${reachedFlash * 0.55})`; ctx.lineWidth = 1.5; ctx.stroke();
-    }
     ctx.restore();
 
     // robot
     ctx.save();
     ctx.translate(robot.x, robot.y); ctx.rotate(robot.heading);
-    ctx.shadowColor = ACC; ctx.shadowBlur = 18;
+    ctx.shadowColor = ACC; ctx.shadowBlur = 14;
     ctx.beginPath();
-    ctx.moveTo(16, 0); ctx.lineTo(-10, 9); ctx.lineTo(-5, 0); ctx.lineTo(-10, -9); ctx.closePath();
+    ctx.moveTo(11, 0); ctx.lineTo(-7, 7); ctx.lineTo(-4, 0); ctx.lineTo(-7, -7); ctx.closePath();
     ctx.fillStyle = ACC; ctx.fill();
     ctx.shadowBlur = 0;
     ctx.restore();
@@ -240,10 +223,9 @@ export function startScene2d(
   // pointer → goal
   const onMove = (e: MouseEvent) => {
     const rect = canvas.getBoundingClientRect();
-    goal.x = e.clientX - rect.left; goal.y = e.clientY - rect.top;
-    lastMove = performance.now();
+    goal.x = e.clientX - rect.left; goal.y = e.clientY - rect.top; mouseInside = true;
   };
-  const onLeave = () => { lastMove = -1e9; };
+  const onLeave = () => { mouseInside = false; };
   canvas.addEventListener('mousemove', onMove);
   canvas.addEventListener('mouseleave', onLeave);
 

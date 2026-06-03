@@ -19,3 +19,6 @@ pnpm-debug.log*
 .idea/
 # scratch / reference (kept locally, not deployed)
 .reference/
+
+# seed reference (kept locally, not part of the Astro build)
+/index.html
