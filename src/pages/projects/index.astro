@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getRepoStats } from '../../lib/github';
+
+const all = await getCollection('projects');
+const projects = all.sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || a.data.order - b.data.order);
+const stats = await getRepoStats(projects.map((p) => p.data.repo));
+
+const filters = [
+  { f: 'all', label: 'all' },
+  { f: 'robotics', label: 'robotics & RL' },
+  { f: 'vision3d', label: '3D vision' },
+  { f: 'cv', label: 'industrial CV' },
+  { f: 'ml', label: 'ML systems' },
+  { f: 'systems', label: 'systems & graphics' },
+];
+---
+
+<Base
+  title="Projects"
+  description="Selected projects by Hamid Taheri across robotics & reinforcement learning, 3D vision, industrial computer vision, ML systems, and low-level systems."
+>
+  <section class="page-head">
+    <div class="wrap">
+      <div class="breadcrumb"><a href={import.meta.env.BASE_URL}>home</a> / projects</div>
+      <h1>Projects</h1>
+      <p class="lead">Research, perception, and systems work — built, trained, and shipped. Filter by theme; star counts are pulled live from GitHub.</p>
+
+      <div class="filters" id="filters">
+        {filters.map((f, i) => (
+          <button class={`filter${i === 0 ? ' active' : ''}`} data-f={f.f}>{f.label}</button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="pad" style="padding-top:0">
+    <div class="wrap">
+      <div class="proj-grid" id="grid">
+        {projects.map((p, i) => (
+          <ProjectCard entry={p} stat={p.data.repo ? stats.get(p.data.repo) : null} delay={(i % 3) + 1} />
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const filters = document.querySelectorAll<HTMLButtonElement>('.filter');
+  const projects = Array.from(document.querySelectorAll<HTMLElement>('.proj'));
+  filters.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filters.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.f;
+      projects.forEach((p) => {
+        p.classList.toggle('hide', !(f === 'all' || p.dataset.cat === f));
+      });
+    });
+  });
+</script>

@@ -1,0 +1,31 @@
+---
+title: 'navbot_ppo'
+repo: 'navbot_ppo'
+description: 'Mapless mobile-robot navigation: a PPO motion planner that drives a TurtleBot to a goal using only sparse LiDAR and the target pose — no SLAM, no map.'
+result: 'Open-source companion to arXiv:2405.16266'
+category: 'robotics'
+badge: 'PPO · Gazebo'
+icon: 'bot'
+tags: ['PPO', 'ROS', 'Gazebo', 'LiDAR', 'PyTorch']
+featured: true
+order: 1
+video: '/media/navbot_navigation.mp4'
+links:
+  - { label: 'Paper · arXiv:2405.16266', url: 'https://arxiv.org/abs/2405.16266' }
+---
+
+A reinforcement-learning **motion planner** that learns to navigate from scratch. The agent's
+state is a compact 16-D vector — downsampled LiDAR ranges plus the relative goal — and its
+action is continuous wheel velocity. There is no global map and no classical planner in the
+loop: the policy itself is the planner.
+
+## Highlights
+
+- **Mapless.** Navigation from sparse LiDAR + target pose only — robust to unseen layouts.
+- **PPO, PyTorch.** Trained end-to-end; the enhanced-PPO formulation from the paper.
+- **Reproducible.** Dockerized Gazebo GUI so the simulation comes up with one command.
+- **Sequential goals.** The demo shows the robot reaching a series of targets while weaving
+  around obstacles — exactly the behaviour the website's hero scene visualizes.
+
+This repository is the practical, runnable counterpart to my publication on
+**safe mobile-robot navigation with enhanced PPO**.

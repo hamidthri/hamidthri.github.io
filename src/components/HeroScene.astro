@@ -1,0 +1,14 @@
+---
+/**
+ * The hero scene layer: the canvas the robot navigates in, plus the veil that
+ * keeps overlaid text legible. The scene script self-boots on the #scene canvas
+ * and picks 3D / 2D based on device capability (Three.js lazy-loaded).
+ */
+---
+
+<canvas id="scene" aria-hidden="true"></canvas>
+<div class="scene-veil" aria-hidden="true"></div>
+
+<script>
+  import '../scripts/scene/index.ts';
+</script>

@@ -1,0 +1,27 @@
+---
+title: '3D Scene Understanding'
+repo: '3d-scene-understanding'
+description: 'From-scratch reimplementations of PointNet, PointNet++, DGCNN and PointMLP for point-cloud classification and part segmentation.'
+result: 'DGCNN segmentation: 80.22% mIoU / 91.32% acc · PointNet++: 91.4% acc'
+category: 'vision3d'
+badge: 'Point clouds'
+icon: 'layers'
+tags: ['DGCNN', 'PointNet++', 'PointMLP', 'ShapeNetPart', 'ModelNet10']
+featured: true
+order: 2
+image: '/media/dgcnn_seg_predictions.png'
+---
+
+A study of the **deep-learning toolkit for 3D perception**, built by reimplementing the
+canonical architectures and benchmarking them head-to-head.
+
+## Results
+
+- **DGCNN** part segmentation on ShapeNetPart: **80.22% mIoU, 91.32% accuracy**.
+- **PointNet++** classification on ModelNet10: **91.4% accuracy**.
+- Clean, comparable implementations of PointNet, PointNet++, DGCNN and PointMLP, so the
+  architectural differences — rather than training tricks — drive the numbers.
+
+The image shows DGCNN segmentation predictions against ground truth: per-point part labels
+recovered directly from raw 3D coordinates. This line of work connects directly to the
+**drifting point-cloud field in the site's hero scene**.

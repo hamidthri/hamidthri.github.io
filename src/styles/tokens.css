@@ -1,0 +1,34 @@
+/* ============================================================
+   Design tokens — ported verbatim from the original index.html
+   :root the user approved. Single source of truth for the theme.
+   ============================================================ */
+:root {
+  --bg: #060911;
+  --bg-2: #0a0f1c;
+  --surface: #0d1422;
+  --surface-2: #111a2b;
+  --line: rgba(120, 160, 205, 0.1);
+  --line-strong: rgba(135, 180, 225, 0.2);
+  --text: #e8eef7;
+  --muted: #92a1ba;
+  --faint: #5c6a82;
+  --accent: #37e7df; /* electric teal — primary signal */
+  --accent-deep: #16b8b0;
+  --signal: #ffc15e; /* amber — goal / path, used sparingly */
+  --accent-soft: rgba(55, 231, 223, 0.1);
+  --signal-soft: rgba(255, 193, 94, 0.1);
+
+  /* category accents (project themes) */
+  --cat-robotics: #22d3ee;
+  --cat-vision3d: #8b5cf6;
+  --cat-cv: #f59e0b;
+  --cat-ml: #10b981;
+  --cat-systems: #f43f5e;
+
+  --radius: 14px;
+  --maxw: 1180px;
+  --maxw-prose: 760px;
+  --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+  --display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --body: 'Hanken Grotesk', system-ui, sans-serif;
+}

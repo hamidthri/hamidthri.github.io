@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Base title="404 — Not found" noindex>
+  <section class="page-head" style="min-height:70vh;display:flex;align-items:center">
+    <div class="wrap" style="text-align:center">
+      <div class="eyebrow" style="justify-content:center">error 404 · goal unreachable</div>
+      <h1 style="font-size:clamp(60px,16vw,160px);margin:0">404</h1>
+      <p class="lead" style="margin:10px auto 30px">The robot couldn't plan a path to this page — it doesn't exist or has moved.</p>
+      <div class="cta-row" style="justify-content:center">
+        <a class="btn primary" href={base || '/'}>Back home</a>
+        <a class="btn" href={`${base}/projects`}>Projects</a>
+        <a class="btn" href={`${base}/research`}>Research</a>
+      </div>
+    </div>
+  </section>
+</Base>

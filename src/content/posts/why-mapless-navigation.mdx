@@ -1,0 +1,37 @@
+---
+title: 'Why I work on mapless navigation'
+date: 2026-05-20
+tags: ['robotics', 'reinforcement-learning', 'research']
+description: 'A short note on what drew me to end-to-end, map-free navigation — and why learning the planner beats planning over a learned map for the problems I care about.'
+---
+
+Classical navigation stacks are a marvel of engineering: build a map, localize in it, plan a
+path, track the path. They work. So why spend years on the alternative — a neural policy that
+reads raw sensors and emits velocity directly, with no map at all?
+
+## The short answer
+
+Because the **interesting failure modes live in the seams**. A SLAM-plan-track stack is a
+pipeline of independently-optimized modules, and the robot only ever sees the world through
+the abstractions each module chose to keep. A learned, end-to-end policy is forced to confront
+the raw observation — and that is exactly where robustness to the unexpected comes from.
+
+In my paper on [safe mobile-robot navigation](/research/deep-rl-ppo-safe-navigation), the
+agent's entire world is a sparse LiDAR scan plus the relative goal. No occupancy grid. The
+policy *is* the planner. What I find compelling:
+
+- **Generalization to unseen layouts.** Nothing about a specific map is baked in.
+- **One objective.** Collision-avoidance and goal-reaching are optimized jointly, not
+  hand-tuned across modules.
+- **Honest difficulty.** When it fails, it fails on the actual perception problem — which is
+  the problem worth solving.
+
+## Where I want to take it
+
+The open questions that pull me toward a PhD are about **safety and verification** of these
+policies: can we give guarantees, or at least calibrated uncertainty, for a controller that is
+a black box? How far can sim-to-real go before the seams reappear? And — the thread running
+through my [LLM path-planner evaluation](/projects/llm-path-planner-eval) — how do we *measure*
+planning competence rigorously when the planner is learned?
+
+More notes to come as the work continues.

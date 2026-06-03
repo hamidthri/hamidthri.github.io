@@ -1,6 +1,27 @@
 {
+  "name": "hamidthri-portfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.0",
+    "@astrojs/rss": "^4.0.11",
+    "@astrojs/sitemap": "^3.4.0",
+    "astro": "^5.13.0",
+    "three": "^0.180.0"
+  },
   "devDependencies": {
-    "@shopify/prettier-plugin-liquid": "1.4.0",
-    "prettier": "3.1.1"
+    "@astrojs/check": "^0.9.4",
+    "@types/three": "^0.180.0",
+    "sharp": "^0.34.0",
+    "typescript": "^5.6.0"
   }
 }

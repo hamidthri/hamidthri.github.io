@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'publications'>;
+}
+const { entry } = Astro.props;
+const p = entry.data;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const href = `${base}/research/${entry.id}`;
+
+// bold the site owner's name in the author list
+const authors = p.authors.map((a) => ({ name: a, me: /taheri/i.test(a) }));
+---
+
+<article class="pub reveal">
+  <div class="meta">
+    {p.year}<br />
+    <span class="venue">{p.venue}</span>
+    {p.status && <><br /><span class="status">{p.status.split('(')[0].trim()}</span></>}
+  </div>
+  <div>
+    <h3><a href={href}>{p.title}</a></h3>
+    <p>{p.abstract}</p>
+    <div class="auth">
+      {authors.map((a, i) => (
+        <>{a.me ? <b>{a.name}</b> : a.name}{i < authors.length - 1 ? ', ' : ''}</>
+      ))}
+    </div>
+  </div>
+  {p.arxiv ? (
+    <a class="go" href={`https://arxiv.org/abs/${p.arxiv}`} target="_blank" rel="noopener">
+      arXiv:{p.arxiv} →
+    </a>
+  ) : (
+    <a class="go" href={href}>details →</a>
+  )}
+</article>

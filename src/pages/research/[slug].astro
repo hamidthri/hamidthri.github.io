@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+
+export async function getStaticPaths() {
+  const pubs = await getCollection('publications');
+  return pubs.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const p = entry.data;
+const { Content } = await render(entry);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ScholarlyArticle',
+  headline: p.title,
+  author: p.authors.map((name) => ({ '@type': 'Person', name })),
+  datePublished: String(p.year),
+  ...(p.arxiv ? { sameAs: `https://arxiv.org/abs/${p.arxiv}` } : {}),
+};
+---
+
+<Base title={p.title} description={p.abstract} type="article" jsonLd={jsonLd}>
+  <article class="page-head">
+    <div class="wrap" style="max-width:860px">
+      <a class="back-link" href={`${base}/research`}><Icon name="arrow-right" size={14} class="flip" /> all research</a>
+      <div class="eyebrow">{p.venue}{p.status ? ` · ${p.status.split('(')[0].trim()}` : ''}</div>
+      <h1 style="font-size:clamp(28px,4.6vw,46px)">{p.title}</h1>
+
+      <div class="meta-row" style="margin-top:18px">
+        <span>{p.authors.join(', ')}</span>
+        <span><b>Year</b> {p.year}</span>
+        {p.arxiv && <span><b>arXiv</b> {p.arxiv}</span>}
+      </div>
+
+      <div class="cta-row" style="margin:6px 0 36px">
+        {p.arxiv && (
+          <a class="btn primary" href={`https://arxiv.org/abs/${p.arxiv}`} target="_blank" rel="noopener">
+            Read on arXiv <Icon name="arrow-up-right" size={15} />
+          </a>
+        )}
+        {p.links.map((l) => (
+          <a class="btn" href={l.url} target="_blank" rel="noopener">{l.label}</a>
+        ))}
+      </div>
+
+      <h2 style="font-family:var(--display);font-size:18px;color:var(--accent);letter-spacing:.04em;margin:0 0 10px">Abstract</h2>
+      <p class="lead" style="max-width:70ch;margin-bottom:40px">{p.abstract}</p>
+
+      <div class="prose"><Content /></div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .flip { transform: rotate(180deg); }
+</style>

@@ -1,0 +1,24 @@
+---
+title: 'ViT-AnomalyDetection'
+repo: 'ViT-AnomalyDetection'
+description: 'A Vision-Transformer autoencoder for industrial inspection: reconstruct the image, then localize defects from patch-wise reconstruction error.'
+result: 'Pretrained ViT encoder + custom decoder for unsupervised anomaly localization'
+category: 'cv'
+badge: 'Inspection'
+icon: 'scan'
+tags: ['ViT', 'Autoencoder', 'Anomaly Detection', 'Inspection']
+featured: true
+order: 4
+---
+
+An **unsupervised industrial-inspection** model: train only on "good" parts, then flag
+anything the network cannot reconstruct well.
+
+## Approach
+
+- **ViT autoencoder.** A pretrained Vision-Transformer encoder feeds a custom decoder that
+  reconstructs the input image.
+- **Patch-wise error → localization.** Anomalies are found where reconstruction error is
+  high, producing a per-patch heatmap rather than just an image-level score.
+- **Why it matters.** This maps directly to the kind of defect-detection work I did as a
+  Computer Vision Engineer at Schwarz IT.

@@ -1,0 +1,82 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { getRepoStat } from '../../lib/github';
+import { githubUser } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const p = entry.data;
+const { Content } = await render(entry);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const stat = await getRepoStat(p.repo);
+const repoUrl = p.repo ? `https://github.com/${githubUser}/${p.repo}` : undefined;
+
+const catVar: Record<string, string> = {
+  robotics: 'var(--cat-robotics)', vision3d: 'var(--cat-vision3d)', cv: 'var(--cat-cv)', ml: 'var(--cat-ml)', systems: 'var(--cat-systems)',
+};
+const accent = catVar[p.category] ?? 'var(--accent)';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareSourceCode',
+  name: p.title,
+  description: p.description,
+  ...(repoUrl ? { codeRepository: repoUrl } : {}),
+  programmingLanguage: p.tags.join(', '),
+};
+---
+
+<Base title={p.title} description={p.description} type="article" jsonLd={jsonLd}>
+  <article class="page-head">
+    <div class="wrap" style="max-width:860px">
+      <a class="back-link" href={`${base}/projects`}><Icon name="arrow-right" size={14} class="flip" /> all projects</a>
+      {p.badge && <div class="eyebrow">{p.badge}</div>}
+      <h1 style="font-size:clamp(30px,5vw,52px)">{p.title}</h1>
+      <p class="lead" style="margin-top:8px">{p.description}</p>
+
+      <div class="meta-row" style="margin-top:20px">
+        {p.result && <span><b>Result</b> {p.result}</span>}
+        {stat && stat.stars > 0 && <span><b>Stars</b> ★ {stat.stars}</span>}
+        <span><b>Tags</b> {p.tags.join(' · ')}</span>
+      </div>
+
+      <div class="cta-row" style="margin:6px 0 36px">
+        {repoUrl && (
+          <a class="btn primary" href={repoUrl} target="_blank" rel="noopener">
+            <Icon name="github" size={15} /> View on GitHub
+          </a>
+        )}
+        {p.links.map((l) => (
+          <a class="btn" href={l.url} target="_blank" rel="noopener">{l.label} <Icon name="arrow-up-right" size={14} /></a>
+        ))}
+      </div>
+
+      {(p.video || p.image) && (
+        <div class="detail-media">
+          {p.video ? (
+            <video src={base + p.video} muted loop autoplay playsinline></video>
+          ) : (
+            <img src={p.image!.startsWith('http') ? p.image : base + p.image} alt={p.title} />
+          )}
+        </div>
+      )}
+      {!p.video && !p.image && (
+        <div class="detail-media ph" style={`--c:${accent};position:relative;aspect-ratio:16/7`}>
+          <Icon name={p.icon} size={80} />
+        </div>
+      )}
+
+      <div class="prose"><Content /></div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .flip { transform: rotate(180deg); }
+</style>

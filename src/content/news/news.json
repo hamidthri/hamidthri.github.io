@@ -1,0 +1,29 @@
+[
+  {
+    "id": "amitego-2026",
+    "date": "2026-03-01",
+    "text": "Started as Applied AI Software Engineer at amitego Engineering, building VMask — real-time OCR and computer-vision privacy masking for remote desktop sessions."
+  },
+  {
+    "id": "prezero-2025",
+    "date": "2025-11-01",
+    "text": "Joined PreZero (Schwarz Group) as an AI/ML & Full-Stack Innovation Intern, working on logistics route optimization and predictive container-pickup planning."
+  },
+  {
+    "id": "deepracer-2025",
+    "date": "2025-06-01",
+    "text": "Top Performer at the Audi XL2 DeepRacer reinforcement-learning competition — virtual and on-site autonomous-navigation racing."
+  },
+  {
+    "id": "preprints-2024",
+    "date": "2024-08-06",
+    "text": "Revised preprints posted: Enhanced-PPO safe navigation (arXiv:2405.16266) and ENet-21 lane detection (arXiv:2403.19782), both under journal review.",
+    "link": "https://arxiv.org/abs/2405.16266"
+  },
+  {
+    "id": "navbot-2024",
+    "date": "2024-05-25",
+    "text": "Released navbot_ppo — an open-source mapless PPO navigation planner for TurtleBot in Gazebo.",
+    "link": "https://github.com/hamidthri/navbot_ppo"
+  }
+]

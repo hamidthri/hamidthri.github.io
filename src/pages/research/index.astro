@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PublicationRow from '../../components/PublicationRow.astro';
+import Icon from '../../components/Icon.astro';
+import { links } from '../../lib/site';
+
+const pubs = (await getCollection('publications')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base
+  title="Research"
+  description="Publications by Hamid Taheri in robot navigation, deep reinforcement learning, and efficient computer vision."
+>
+  <section class="page-head">
+    <div class="wrap">
+      <div class="breadcrumb"><a href={import.meta.env.BASE_URL}>home</a> / research</div>
+      <h1>Research</h1>
+      <p class="lead">
+        I work on learning-based perception and control for autonomous systems. Both papers below
+        are 2024 preprints under journal review — full text and code are linked.
+      </p>
+      <div class="cta-row" style="margin-top:26px">
+        <a class="btn" href={links.scholar} target="_blank" rel="noopener"><Icon name="scholar" size={15} /> Google Scholar</a>
+        <a class="btn" href={links.cv} target="_blank" rel="noopener"><Icon name="download" size={15} /> CV</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="wrap">
+      {pubs.map((p) => <PublicationRow entry={p} />)}
+    </div>
+  </section>
+</Base>

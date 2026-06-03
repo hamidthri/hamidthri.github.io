@@ -1,0 +1,15 @@
+[
+  { "repo": "navbot_ppo", "stars": 53, "pushedAt": "2026-02-08T00:00:00Z", "url": "https://github.com/hamidthri/navbot_ppo" },
+  { "repo": "3d-scene-understanding", "stars": 7, "pushedAt": "2025-10-15T00:00:00Z", "url": "https://github.com/hamidthri/3d-scene-understanding" },
+  { "repo": "ViT-AnomalyDetection", "stars": 5, "pushedAt": "2024-10-23T00:00:00Z", "url": "https://github.com/hamidthri/ViT-AnomalyDetection" },
+  { "repo": "3D_Bbox_detection", "stars": 1, "pushedAt": "2025-06-12T00:00:00Z", "url": "https://github.com/hamidthri/3D_Bbox_detection" },
+  { "repo": "rl-playground", "stars": 1, "pushedAt": "2025-06-13T00:00:00Z", "url": "https://github.com/hamidthri/rl-playground" },
+  { "repo": "42-miniRT", "stars": 1, "pushedAt": "2025-06-30T00:00:00Z", "url": "https://github.com/hamidthri/42-miniRT" },
+  { "repo": "ft_transcendence", "stars": 1, "pushedAt": "2025-05-05T00:00:00Z", "url": "https://github.com/hamidthri/ft_transcendence" },
+  { "repo": "llmFlow", "stars": 1, "pushedAt": "2025-08-13T00:00:00Z", "url": "https://github.com/hamidthri/llmFlow" },
+  { "repo": "TurboOCR", "stars": 0, "pushedAt": "2026-05-01T00:00:00Z", "url": "https://github.com/hamidthri/TurboOCR" },
+  { "repo": "voice-agent-bridge", "stars": 0, "pushedAt": "2026-05-08T00:00:00Z", "url": "https://github.com/hamidthri/voice-agent-bridge" },
+  { "repo": "llm-evaluation-path-planner", "stars": 0, "pushedAt": "2025-10-31T00:00:00Z", "url": "https://github.com/hamidthri/llm-evaluation-path-planner" },
+  { "repo": "webserv", "stars": 0, "pushedAt": "2024-09-18T00:00:00Z", "url": "https://github.com/hamidthri/webserv" },
+  { "repo": "quant-backtesting-lab", "stars": 0, "pushedAt": "2026-05-14T00:00:00Z", "url": "https://github.com/hamidthri/quant-backtesting-lab" }
+]

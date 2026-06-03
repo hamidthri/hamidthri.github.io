@@ -1,0 +1,26 @@
+---
+title: '3D Object Detection on RGB-D'
+repo: '3D_Bbox_detection'
+description: 'An end-to-end 3D object-detection pipeline on RGB-D data, comparing a from-scratch model against a fine-tuned EfficientNet-B3 backbone under a small-data regime.'
+result: '8-corner boxes → parametric (center + size + quaternion) via PCA'
+category: 'vision3d'
+badge: 'RGB-D'
+icon: 'box'
+tags: ['RGB-D', '3D bbox', 'EfficientNet', 'Multimodal']
+featured: true
+order: 3
+links:
+  - { label: 'Pipeline visualization', url: 'https://github.com/hamidthri/3D_Bbox_detection' }
+---
+
+A compact, multimodal **3D detection** pipeline that learns oriented bounding boxes from RGB-D
+input with only ~200 training samples — a deliberate small-data challenge.
+
+## Approach
+
+- **Two backbones compared.** A from-scratch network vs a fine-tuned **EfficientNet-B3**.
+- **Box parameterization.** Eight corner points are converted to a clean parametric form —
+  center, size and orientation (quaternion) — using PCA, which stabilizes the regression
+  target.
+- **Interactive pipeline view.** The repo ships an HTML visualization of each stage, from
+  RGB-D input to predicted boxes.

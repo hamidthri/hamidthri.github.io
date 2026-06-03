@@ -1,0 +1,68 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { RepoStat } from '../lib/github';
+import { githubUser } from '../lib/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  entry: CollectionEntry<'projects'>;
+  stat?: RepoStat | null;
+  delay?: number;
+}
+const { entry, stat, delay } = Astro.props;
+const p = entry.data;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const href = `${base}/projects/${entry.id}`;
+const repoUrl = p.repo ? `https://github.com/${githubUser}/${p.repo}` : undefined;
+
+const catVar: Record<string, string> = {
+  robotics: 'var(--cat-robotics)',
+  vision3d: 'var(--cat-vision3d)',
+  cv: 'var(--cat-cv)',
+  ml: 'var(--cat-ml)',
+  systems: 'var(--cat-systems)',
+};
+const accent = catVar[p.category] ?? 'var(--accent)';
+const stars = stat?.stars ?? 0;
+---
+
+<article class="proj reveal" data-cat={p.category} data-d={delay}>
+  <a class="media" href={href} aria-label={p.title}>
+    {p.video ? (
+      <video
+        src={base + p.video}
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        onmouseover="this.play()"
+        onmouseout="this.pause()"
+      ></video>
+    ) : p.image ? (
+      <img src={p.image.startsWith('http') ? p.image : base + p.image} alt={p.title} loading="lazy" />
+    ) : (
+      <div class="ph" style={`--c:${accent}`}>
+        <Icon name={p.icon} size={64} />
+        <span class="ph-name">{p.repo ?? p.title}</span>
+      </div>
+    )}
+    {p.badge && <div class="badge">{p.badge}</div>}
+    {stars > 0 && (
+      <div class="stars"><Icon name="star" size={12} /> {stars}</div>
+    )}
+  </a>
+  <div class="body">
+    <h3><a href={href}>{p.title}</a></h3>
+    <p>{p.description}</p>
+    <div class="foot">
+      <div class="tags">
+        {p.tags.slice(0, 3).map((t, i) => (
+          <span>{t}{i < Math.min(p.tags.length, 3) - 1 ? ' ·' : ''}</span>
+        ))}
+      </div>
+      {repoUrl && (
+        <a class="repo" href={repoUrl} target="_blank" rel="noopener">repo →</a>
+      )}
+    </div>
+  </div>
+</article>

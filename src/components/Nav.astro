@@ -1,0 +1,27 @@
+---
+import { site, navItems } from '../lib/site';
+
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isActive = (href: string) => path === href || path.startsWith(href + '/');
+const withBase = (p: string) => import.meta.env.BASE_URL.replace(/\/$/, '') + p;
+---
+
+<nav class="site-nav" id="nav" aria-label="Primary">
+  <a class="brand" href={withBase('/')} aria-label={`${site.name} — home`}>
+    <span class="pulse" aria-hidden="true"></span>
+    <b>{site.shortName}</b>
+    <span>// {site.role}</span>
+  </a>
+
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <path d="M4 7h16M4 12h16M4 17h16" />
+    </svg>
+  </button>
+
+  <div class="nav-links" id="nav-links">
+    {navItems.map((item) => (
+      <a href={withBase(item.href)} class={isActive(item.href) ? 'active' : undefined}>{item.label}</a>
+    ))}
+  </div>
+</nav>

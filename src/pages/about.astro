@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { links, site } from '../lib/site';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const timeline = [
+  { date: '2026 — present', role: 'Applied AI Software Engineer', org: 'amitego Engineering GmbH · Germany', body: 'Building VMask, an AI privacy-masking system for remote desktop sessions: real-time OCR, computer vision, GPU inference, backend services and Linux remote-desktop infrastructure.', kind: 'work' },
+  { date: '2025 — 2026', role: 'AI/ML & Full-Stack Innovation Intern', org: 'PreZero (Schwarz Group) · Germany', body: 'Two AI logistics projects — route optimization and predictive container-pickup planning — delivered as ML models, backend logic and a full-stack prototype.', kind: 'work' },
+  { date: '2024 — 2025', role: 'Computer Vision Engineer (Intern)', org: 'Schwarz IT KG · Germany', body: 'Object detection, anomaly detection and OCR for industrial applications using Python, Docker, Azure, Kubernetes and CI/CD.', kind: 'work' },
+  { date: '2023 — present', role: 'Software Engineering', org: '42 Heilbronn · Germany', body: 'Intensive, project-based systems programming — C, C++, Shell, Docker and AI integration.', kind: 'edu' },
+  { date: '2019 — 2022', role: 'M.Sc. Electrical Engineering — Control Systems', org: 'K. N. Toosi University of Technology · Tehran', body: 'Thesis: continuous control of nonholonomic mobile-robot navigation with deep RL (PPO, DDPG); vision-based autonomous navigation.', kind: 'edu' },
+  { date: '2014 — 2018', role: 'B.Sc. Electrical Engineering — Control Systems', org: 'University of Isfahan · Iran', body: 'Thesis: mentor-robot position control via forward kinematics and mobile sensor data. Top-3 graduate.', kind: 'edu' },
+  { date: '2017 — 2018', role: 'Instrumentation Engineer', org: 'South Isfahan Power Station · Iran', body: 'Calibration, monitoring, sensor integration and control-loop tuning for instrumentation systems.', kind: 'work' },
+];
+
+const skills = [
+  { h: 'AI / ML', items: ['PyTorch', 'TensorFlow', 'Scikit-learn', 'OpenCV', 'Hugging Face', 'LangChain'] },
+  { h: 'Robotics & RL', items: ['ROS', 'Gazebo', 'LiDAR', 'PPO / DDPG / SAC', 'GAIL / IRL / MPC', 'PointNet / DGCNN'] },
+  { h: 'Systems', items: ['C / C++', 'Python', 'Shell', 'Linux', 'CUDA / TensorRT', 'MATLAB'] },
+  { h: 'DevOps / Web', items: ['Docker', 'Kubernetes', 'Azure Pipelines', 'Git', 'gRPC', 'HTML / CSS / JS'] },
+];
+
+const awards = [
+  { yr: '2025', title: 'Top Performer — Audi XL2 DeepRacer RL Competition', body: 'Among the top participants in a virtual & on-site reinforcement-learning competition for autonomous navigation.' },
+  { yr: '2019', title: "Ranked 67th — National Master's Entrance Exam", body: 'Top 0.2% of 30,000+ participants nationwide.' },
+  { yr: '2018', title: 'Exceptionally Talented Student', body: 'Admitted to Iran University of Science & Technology without an entrance exam.' },
+  { yr: '2018', title: 'Top-3 Graduate, B.Sc.', body: 'University of Isfahan.' },
+];
+---
+
+<Base title="About" description="Hamid Taheri — from control theory to production AI. Background, experience, skills and recognition.">
+  <section class="page-head">
+    <div class="wrap">
+      <div class="breadcrumb"><a href={import.meta.env.BASE_URL}>home</a> / about</div>
+      <div class="about-top">
+        <div>
+          <h1>About</h1>
+          <p class="lead">
+            I'm a computer-vision and robotics engineer based in {site.location}, working at the
+            intersection of <b>deep reinforcement learning</b>, <b>perception</b>, and
+            <b>production AI</b>. My path runs from control theory through robotics research into
+            shipping real-time ML systems — and points toward a <b>PhD</b> in learning-based
+            autonomy.
+          </p>
+          <div class="cta-row" style="margin-top:26px">
+            <a class="btn primary" href={links.cv} target="_blank" rel="noopener"><Icon name="download" size={15} /> Download CV</a>
+            <a class="btn" href={links.scholar} target="_blank" rel="noopener"><Icon name="scholar" size={15} /> Scholar</a>
+            <a class="btn" href={links.linkedin} target="_blank" rel="noopener"><Icon name="linkedin" size={15} /> LinkedIn</a>
+          </div>
+        </div>
+        <img class="portrait" src={`${base}/media/prof_pic.jpg`} alt="Hamid Taheri" width="240" height="240" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <section class="pad-sm">
+    <div class="wrap">
+      <div class="eyebrow">Trajectory</div>
+      <h2 class="section-title">From control theory to production AI.</h2>
+      <div class="tl">
+        {timeline.map((t) => (
+          <div class="tl-item reveal">
+            <div class="tl-date">{t.date}</div>
+            <h3>{t.role}</h3>
+            <div class="org">{t.org}</div>
+            <p>{t.body}</p>
+          </div>
+        ))}
+      </div>
+      <div class="arc reveal">trajectory&nbsp;&gt;&nbsp; <b>control systems</b> → robotics research → computer vision → production AI → <b>PhD-ready research engineer</b></div>
+    </div>
+  </section>
+
+  <section class="pad-sm">
+    <div class="wrap">
+      <div class="eyebrow">Stack</div>
+      <h2 class="section-title">Tools of the trade.</h2>
+      <div class="skill-grid">
+        {skills.map((s, i) => (
+          <div class="skill-col reveal" data-d={i + 1}>
+            <h4>{s.h}</h4>
+            <ul>{s.items.map((it) => <li>{it}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="pad-sm">
+    <div class="wrap">
+      <div class="eyebrow">Recognition</div>
+      <h2 class="section-title">Awards &amp; achievements.</h2>
+      <div class="award-grid">
+        {awards.map((a, i) => (
+          <div class="award reveal" data-d={(i % 2) + 1}>
+            <span class="yr">{a.yr}</span>
+            <div><h3>{a.title}</h3><p>{a.body}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .about-top { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start; }
+  .portrait { border-radius: 18px; border: 1px solid var(--line-strong); width: 240px; height: 240px; object-fit: cover; background: var(--surface); }
+  @media (max-width: 760px) {
+    .about-top { grid-template-columns: 1fr; }
+    .portrait { width: 150px; height: 150px; order: -1; }
+  }
+</style>
