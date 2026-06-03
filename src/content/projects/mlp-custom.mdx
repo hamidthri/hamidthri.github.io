@@ -1,0 +1,22 @@
+---
+title: 'Custom MLP Library'
+repo: 'mlp_custom'
+description: 'A minimal neural-network framework written from scratch in NumPy, with multiple activation functions and MSE loss, supporting classification and regression.'
+result: 'Forward + backprop implemented by hand to understand the gradients end-to-end'
+category: 'ml'
+badge: 'from scratch · NumPy'
+icon: 'network'
+tags: ['NumPy', 'Backprop', 'MLP', 'Python']
+featured: false
+order: 7
+---
+
+A neural network with **no autograd and no framework** — just NumPy and the chain rule.
+
+## What it does
+
+- A configurable multilayer perceptron supporting **classification and regression**.
+- Multiple **activation functions** and **MSE loss**, with forward and backward passes
+  implemented by hand.
+- Built to make the gradients concrete: every weight update is traceable to the math, which
+  is the best way to really understand training.

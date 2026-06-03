@@ -1,14 +1,23 @@
 ---
 import { site, links } from '../lib/site';
+import Icon from './Icon.astro';
 const year = new Date().getFullYear();
+
+const social = [
+  { href: links.github, label: 'GitHub', icon: 'github', ext: true },
+  { href: links.scholar, label: 'Scholar', icon: 'scholar', ext: true },
+  { href: links.linkedin, label: 'LinkedIn', icon: 'linkedin', ext: true },
+  { href: links.email, label: 'Email', icon: 'mail', ext: false },
+];
 ---
 
 <footer class="site-footer">
   <div class="f-brand">© {year} <b>{site.name}</b> · {site.location}</div>
   <div class="f-links">
-    <a href={links.github} target="_blank" rel="noopener">github</a>
-    <a href={links.scholar} target="_blank" rel="noopener">scholar</a>
-    <a href={links.linkedin} target="_blank" rel="noopener">linkedin</a>
-    <a href={links.email}>email</a>
+    {social.map((s) => (
+      <a href={s.href} {...(s.ext ? { target: '_blank', rel: 'noopener' } : {})}>
+        <Icon name={s.icon} size={14} /> {s.label}
+      </a>
+    ))}
   </div>
 </footer>
