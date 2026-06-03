@@ -232,8 +232,8 @@ html.js .reveal.in { opacity: 1; transform: none; }
 .scene-veil {
   position: absolute; inset: 0; pointer-events: none;
   background:
-    linear-gradient(90deg, var(--bg) 2%, rgba(6, 9, 17, 0.82) 28%, rgba(6, 9, 17, 0.34) 54%, rgba(6, 9, 17, 0) 78%),
-    radial-gradient(135% 130% at 50% 38%, transparent 60%, rgba(6, 9, 17, 0.5));
+    linear-gradient(90deg, var(--bg) 4%, rgba(6, 9, 17, 0.62) 42%, rgba(6, 9, 17, 0.18) 72%, rgba(6, 9, 17, 0.55) 100%),
+    radial-gradient(120% 90% at 50% 120%, transparent 50%, rgba(6, 9, 17, 0.7));
 }
 .hero-inner { position: relative; width: 100%; }
 /* availability pill */
