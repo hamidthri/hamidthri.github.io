@@ -232,10 +232,29 @@ html.js .reveal.in { opacity: 1; transform: none; }
 .scene-veil {
   position: absolute; inset: 0; pointer-events: none;
   background:
-    linear-gradient(90deg, var(--bg) 4%, rgba(6, 9, 17, 0.62) 42%, rgba(6, 9, 17, 0.18) 72%, rgba(6, 9, 17, 0.55) 100%),
-    radial-gradient(120% 90% at 50% 120%, transparent 50%, rgba(6, 9, 17, 0.7));
+    linear-gradient(90deg, var(--bg) 2%, rgba(6, 9, 17, 0.82) 28%, rgba(6, 9, 17, 0.34) 54%, rgba(6, 9, 17, 0) 78%),
+    radial-gradient(135% 130% at 50% 38%, transparent 60%, rgba(6, 9, 17, 0.5));
 }
 .hero-inner { position: relative; width: 100%; }
+/* availability pill */
+.avail {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.03em; color: var(--text);
+  border: 1px solid var(--line-strong); background: rgba(55, 231, 223, 0.05);
+  border-radius: 999px; padding: 7px 15px; margin-bottom: 22px;
+}
+.avail .av-dot { width: 8px; height: 8px; border-radius: 50%; background: #3ad17a; box-shadow: 0 0 0 0 rgba(58, 209, 122, 0.5); animation: pulse-green 2.4s infinite; }
+@keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(58, 209, 122, 0.45); } 70% { box-shadow: 0 0 0 8px rgba(58, 209, 122, 0); } 100% { box-shadow: 0 0 0 0 rgba(58, 209, 122, 0); } }
+
+/* credibility stat strip */
+.stat-band { position: relative; z-index: 1; }
+.stat-strip { display: flex; flex-wrap: wrap; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.stat-strip > div { flex: 1 1 0; min-width: 150px; padding: 22px clamp(14px, 2.5vw, 26px); border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 6px; }
+.stat-strip > div:last-child { border-right: none; }
+.stat-strip b { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 3vw, 32px); color: var(--accent); letter-spacing: -0.02em; line-height: 1; }
+.stat-strip span { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+@media (max-width: 640px) { .stat-strip > div { flex-basis: 50%; border-bottom: 1px solid var(--line); } }
+
 .tag { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 22px; display: flex; align-items: center; gap: 10px; }
 .tag .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--signal); }
 .hero-inner h1 { font-family: var(--display); font-weight: 800; font-size: clamp(42px, 8vw, 92px); line-height: 0.94; letter-spacing: -0.035em; margin: 0 0 18px; }

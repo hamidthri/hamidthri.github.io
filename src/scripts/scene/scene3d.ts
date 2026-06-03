@@ -102,7 +102,7 @@ export function startScene3d(canvas: HTMLCanvasElement): SceneHandle {
   starGeo.setAttribute('color', new THREE.BufferAttribute(col, 3));
   const starTex = track(softTexture());
   const starMat = track(new THREE.PointsMaterial({
-    size: 1.8, map: starTex, vertexColors: true, transparent: true, opacity: 0.95,
+    size: 1.55, map: starTex, vertexColors: true, transparent: true, opacity: 0.92,
     blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
   }));
   const galaxy = new THREE.Group();
@@ -114,7 +114,7 @@ export function startScene3d(canvas: HTMLCanvasElement): SceneHandle {
   const nebTex = track(softTexture());
   const nebColors = [COL.indigo, COL.teal, 0x5a3070, COL.indigo, 0x1c6f86];
   for (let i = 0; i < nebColors.length; i++) {
-    const mat = track(new THREE.SpriteMaterial({ map: nebTex, color: nebColors[i], transparent: true, opacity: 0.2, blending: THREE.AdditiveBlending, depthWrite: false }));
+    const mat = track(new THREE.SpriteMaterial({ map: nebTex, color: nebColors[i], transparent: true, opacity: 0.13, blending: THREE.AdditiveBlending, depthWrite: false }));
     const s = new THREE.Sprite(mat);
     const ang = (i / nebColors.length) * Math.PI * 2 + rand(-0.3, 0.3);
     const r = rand(70, 170);
@@ -128,8 +128,8 @@ export function startScene3d(canvas: HTMLCanvasElement): SceneHandle {
   const planets: PlanetHandle[] = [];
   function addPlanet(p: PlanetHandle) { planets.push(p); p.disposables.forEach((d) => disposables.push(d)); scene.add(p.group); }
 
-  // focal ocean/cloud world — right side (clear zone next to hero text)
-  addPlanet(makePlanet({ type: 'terran', radius: 8.5, position: [19, -2, 5], clouds: true, atmosphere: 0x4fb8e0, tilt: 0.4, spin: 0.05 }));
+  // focal ocean/cloud world — lower-right, fully in frame (clear of the text)
+  addPlanet(makePlanet({ type: 'terran', radius: 7, position: [15, -8, -2], clouds: true, atmosphere: 0x4fb8e0, tilt: 0.4, spin: 0.05 }));
   // ringed gas giant — upper-left, far (depth behind the text)
   addPlanet(makePlanet({ type: 'gas', radius: 13, position: [-30, 12, -85], palette: 'saturn', rings: 0xe6d6ad, tilt: 0.55, spin: 0.04 }));
   // distant rocky world

@@ -75,7 +75,7 @@ function buildTexture(
   ctx.putImageData(img, 0, 0);
   const tex = new THREE.CanvasTexture(cv);
   tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = 4;
+  tex.anisotropy = 8;
   return tex;
 }
 
@@ -98,7 +98,7 @@ function gasTexture(perm: Uint8Array, palette: RGB[], w = 512, h = 256): THREE.C
 const TERRAN: RGB[] = [
   [12, 34, 64], [18, 56, 92], [28, 96, 120], [216, 200, 150], [70, 120, 64], [96, 120, 60], [120, 96, 64], [150, 150, 150],
 ];
-function terranTexture(perm: Uint8Array, w = 768, h = 384): THREE.CanvasTexture {
+function terranTexture(perm: Uint8Array, w = 1024, h = 512): THREE.CanvasTexture {
   return buildTexture(w, h, (px, py, pz) => {
     let e = fbm(perm, px * 1.7, py * 1.7, pz * 1.7, 6);
     e = e * 0.7 + (fbm(perm, px * 4, py * 4, pz * 4, 4) - 0.5) * 0.3;
