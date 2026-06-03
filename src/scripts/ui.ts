@@ -124,6 +124,20 @@ document.querySelectorAll<HTMLElement>('.card').forEach((c) => {
   });
 });
 
+/* ---------- play videos only while on screen (keeps the hero light) ---------- */
+const inviewVids = Array.from(document.querySelectorAll<HTMLVideoElement>('.js-inview-video'));
+if (inviewVids.length && 'IntersectionObserver' in window) {
+  const vo = new IntersectionObserver(
+    (entries) => entries.forEach((e) => {
+      const v = e.target as HTMLVideoElement;
+      if (e.isIntersecting) v.play().catch(() => {});
+      else v.pause();
+    }),
+    { threshold: 0.25 },
+  );
+  inviewVids.forEach((v) => vo.observe(v));
+}
+
 /* ---------- custom cursor ---------- */
 if (fine && !reduce) {
   document.body.classList.add('has-cursor');
