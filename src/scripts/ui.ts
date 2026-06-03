@@ -78,6 +78,44 @@ if (reduce) {
   window.addEventListener('load', sweep);
 }
 
+/* ---------- animated stat counters ---------- */
+const counters = Array.from(document.querySelectorAll<HTMLElement>('[data-count]'));
+if (counters.length) {
+  if (reduce) {
+    // values already render as final text — nothing to animate
+  } else {
+    const animate = (el: HTMLElement) => {
+      const target = parseFloat(el.dataset.count || '0');
+      const dec = parseInt(el.dataset.dec || '0', 10);
+      const dur = 1100;
+      const t0 = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min(1, (now - t0) / dur);
+        const e = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        el.textContent = (target * e).toFixed(dec);
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = target.toFixed(dec);
+      };
+      requestAnimationFrame(tick);
+    };
+    let counted = false;
+    const strip = document.querySelector('.stat-strip');
+    const maybeCount = () => {
+      if (counted || !strip) return;
+      const r = strip.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      if (r.top < vh * 0.92 && r.bottom > 0) {
+        counted = true;
+        counters.forEach((c) => { c.textContent = '0'; animate(c); });
+        window.removeEventListener('scroll', maybeCount);
+      }
+    };
+    maybeCount();
+    window.addEventListener('scroll', maybeCount, { passive: true });
+    window.addEventListener('load', maybeCount);
+  }
+}
+
 /* ---------- card glow follow ---------- */
 document.querySelectorAll<HTMLElement>('.card').forEach((c) => {
   c.addEventListener('mousemove', (e) => {

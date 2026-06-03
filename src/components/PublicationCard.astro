@@ -1,0 +1,52 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'publications'>;
+  index?: number;
+}
+const { entry, index = 0 } = Astro.props;
+const p = entry.data;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const href = `${base}/research/${entry.id}`;
+const authors = p.authors.map((a) => ({ name: a, me: /taheri/i.test(a) }));
+const statusShort = p.status ? p.status.split('(')[0].trim() : null;
+const num = String(index + 1).padStart(2, '0');
+const src = (s?: string) => (s ? (s.startsWith('http') ? s : base + s) : undefined);
+---
+
+<article class="pub-card reveal">
+  <a class="pub-fig" href={href} aria-label={p.title}>
+    {p.video ? (
+      <video src={src(p.video)} poster={src(p.poster)} muted loop autoplay playsinline preload="none"></video>
+    ) : p.image ? (
+      <img src={src(p.image)} alt={p.title} loading="lazy" />
+    ) : (
+      <div class="pub-ph">
+        <span class="pub-ph-id">arXiv:{p.arxiv}</span>
+        <span class="pub-ph-venue">{p.venue}</span>
+      </div>
+    )}
+    <span class="pub-num">{num}</span>
+  </a>
+  <div class="pub-content">
+    <div class="pub-badges">
+      <span class="b b-venue">{p.venue}</span>
+      {statusShort && <span class="b b-status">{statusShort}</span>}
+      <span class="b b-year">{p.year}</span>
+    </div>
+    <h3><a href={href}>{p.title}</a></h3>
+    <p>{p.abstract}</p>
+    <div class="auth">
+      {authors.map((a, i) => (
+        <>{a.me ? <b>{a.name}</b> : a.name}{i < authors.length - 1 ? ', ' : ''}</>
+      ))}
+    </div>
+    <div class="pub-links">
+      {p.arxiv && (
+        <a class="go" href={`https://arxiv.org/abs/${p.arxiv}`} target="_blank" rel="noopener">arXiv:{p.arxiv} →</a>
+      )}
+      <a class="go ghost" href={href}>Details →</a>
+    </div>
+  </div>
+</article>

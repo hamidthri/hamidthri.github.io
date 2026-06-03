@@ -15,11 +15,13 @@ const pubs = (await getCollection('publications'))
   .sort((a, b) => a.data.order - b.data.order);
 
 const allProjects = await getCollection('projects');
+const navbot = allProjects.find((p) => p.data.repo === 'navbot_ppo');
 const featured = allProjects
-  .filter((p) => p.data.featured)
+  .filter((p) => p.data.featured && p.data.repo !== 'navbot_ppo')
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 6);
-const stats = await getRepoStats(featured.map((p) => p.data.repo));
+const stats = await getRepoStats([...featured.map((p) => p.data.repo), navbot?.data.repo]);
+const navStat = navbot ? stats.get(navbot.data.repo!) : null;
 
 const news = (await getCollection('news'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -85,10 +87,10 @@ const focus = [
   <section class="stat-band">
     <div class="wrap">
       <div class="stat-strip">
-        <div><b>11</b><span>open-source projects</span></div>
-        <div><b>2</b><span>arXiv preprints</span></div>
-        <div><b>★53</b><span>navbot_ppo stars</span></div>
-        <div><b>Top 0.2%</b><span>national M.Sc. rank</span></div>
+        <div><b><span data-count="11">11</span></b><span>open-source projects</span></div>
+        <div><b><span data-count="2">2</span></b><span>arXiv preprints</span></div>
+        <div><b>★<span data-count="53">53</span></b><span>navbot_ppo stars</span></div>
+        <div><b>Top <span data-count="0.2" data-dec="1">0.2</span>%</b><span>national M.Sc. rank</span></div>
       </div>
     </div>
   </section>
@@ -139,7 +141,37 @@ const focus = [
         <h2 class="section-title">Evidence in code.</h2>
         <p class="lead">Research, perception, and systems work — built, trained, and shipped.</p>
       </div>
-      <div class="proj-grid" style="margin-top:34px">
+
+      {navbot && (
+        <div class="spotlight reveal">
+          <div class="sp-media">
+            <video
+              src={`${base}/media/navbot_navigation.mp4`}
+              poster={`${base}/media/navbot_navigation_poster.jpg`}
+              muted loop autoplay playsinline preload="none"
+            ></video>
+            <span class="badge">Flagship · PPO</span>
+          </div>
+          <div class="sp-body">
+            <div class="eyebrow">Featured work</div>
+            <h3>{navbot.data.title}</h3>
+            <p>{navbot.data.description}</p>
+            <div class="sp-metrics">
+              <div><b>★ {navStat?.stars ?? 53}</b><span>GitHub stars</span></div>
+              <div><b>16-D</b><span>LiDAR state</span></div>
+              <div><b>mapless</b><span>no SLAM</span></div>
+            </div>
+            <div class="sp-tags">{navbot.data.tags.map((t) => <span class="chip">{t}</span>)}</div>
+            <div class="sp-cta">
+              <a class="btn primary" href={`${base}/projects/navbot-ppo`}>Case study <Icon name="arrow-right" size={15} /></a>
+              <a class="btn" href="https://github.com/hamidthri/navbot_ppo" target="_blank" rel="noopener"><Icon name="github" size={15} /> GitHub</a>
+              <a class="btn" href="https://arxiv.org/abs/2405.16266" target="_blank" rel="noopener">Paper</a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div class="proj-grid" style="margin-top:18px">
         {featured.map((p, i) => (
           <ProjectCard entry={p} stat={p.data.repo ? stats.get(p.data.repo) : null} delay={(i % 3) + 1} />
         ))}

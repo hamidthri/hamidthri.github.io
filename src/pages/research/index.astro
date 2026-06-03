@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import PublicationRow from '../../components/PublicationRow.astro';
+import PublicationCard from '../../components/PublicationCard.astro';
 import Icon from '../../components/Icon.astro';
 import { links } from '../../lib/site';
 
@@ -29,7 +29,7 @@ const pubs = (await getCollection('publications')).sort((a, b) => a.data.order -
 
   <section class="pad">
     <div class="wrap">
-      {pubs.map((p) => <PublicationRow entry={p} />)}
+      {pubs.map((p, i) => <PublicationCard entry={p} index={i} />)}
     </div>
   </section>
 </Base>

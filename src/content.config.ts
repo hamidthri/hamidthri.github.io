@@ -19,6 +19,8 @@ const publications = defineCollection({
     links: linkList,
     citations: z.number().int().optional(), // omitted until verified — never fabricated
     image: z.string().optional(),
+    video: z.string().optional(),
+    poster: z.string().optional(),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     order: z.number().default(0),
@@ -40,6 +42,7 @@ const projects = defineCollection({
     archived: z.boolean().default(false),
     image: z.string().optional(), // /media/... or remote url
     video: z.string().optional(),
+    poster: z.string().optional(),
     links: linkList,
     order: z.number().default(0),
   }),

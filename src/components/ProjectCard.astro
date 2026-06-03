@@ -31,10 +31,11 @@ const stars = stat?.stars ?? 0;
     {p.video ? (
       <video
         src={base + p.video}
+        poster={p.poster ? base + p.poster : undefined}
         muted
         loop
         playsinline
-        preload="metadata"
+        preload="none"
         onmouseover="this.play()"
         onmouseout="this.pause()"
       ></video>
