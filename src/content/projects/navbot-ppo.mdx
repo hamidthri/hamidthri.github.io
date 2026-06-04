@@ -1,12 +1,12 @@
 ---
 title: 'navbot_ppo'
 repo: 'navbot_ppo'
-description: 'Mapless mobile-robot navigation: a PPO motion planner that drives a TurtleBot to a goal using only sparse LiDAR and the target pose — no SLAM, no map.'
-result: 'Open-source companion to arXiv:2405.16266'
+description: 'Mapless mobile-robot navigation: deep-RL motion planners — PPO, DDPG, SAC and TD3 — that drive a TurtleBot to a goal from sparse LiDAR and the target pose, with no SLAM and no map.'
+result: 'PPO · DDPG · SAC · TD3 on one 16-D LiDAR state'
 category: 'robotics'
-badge: 'PPO · Gazebo'
+badge: 'Deep RL · Gazebo'
 icon: 'bot'
-tags: ['PPO', 'ROS', 'Gazebo', 'LiDAR', 'PyTorch']
+tags: ['PPO', 'DDPG', 'SAC', 'TD3', 'ROS', 'LiDAR']
 featured: true
 order: 1
 video: '/media/navbot_navigation.mp4'
@@ -23,10 +23,12 @@ loop: the policy itself is the planner.
 ## Highlights
 
 - **Mapless.** Navigation from sparse LiDAR + target pose only — robust to unseen layouts.
-- **PPO, PyTorch.** Trained end-to-end; the enhanced-PPO formulation from the paper.
+- **Four deep-RL algorithms.** PPO, DDPG, SAC and TD3 implementations (PyTorch), all trained
+  on the same 16-D LiDAR observation so the continuous-control policies can be compared
+  head-to-head.
 - **Reproducible.** Dockerized Gazebo GUI so the simulation comes up with one command.
-- **Sequential goals.** The demo shows the robot reaching a series of targets while weaving
-  around obstacles in real time.
+- **Real-time avoidance.** The overhead demo shows the agent sweeping LiDAR, weaving around
+  obstacles, and driving to the goal.
 
 This repository is the practical, runnable counterpart to my publication on
 **safe mobile-robot navigation with enhanced PPO**.
