@@ -58,9 +58,14 @@ const jsonLd = {
       </div>
 
       {(p.video || p.image) && (
-        <div class="detail-media">
+        <div class={`detail-media${p.video ? ' detail-media--video' : ''}`}>
           {p.video ? (
-            <video src={base + p.video} muted loop autoplay playsinline></video>
+            <video
+              class="js-inview-video"
+              src={base + p.video}
+              poster={p.poster ? base + p.poster : undefined}
+              muted loop playsinline preload="none"
+            ></video>
           ) : (
             <img src={p.image!.startsWith('http') ? p.image : base + p.image} alt={p.title} />
           )}
