@@ -331,8 +331,8 @@ html.js .reveal.in { opacity: 1; transform: none; }
 @media (max-width: 760px) { .pub-card { grid-template-columns: 1fr; gap: 16px; } }
 
 /* ---------- flagship spotlight ---------- */
-.spotlight { display: grid; grid-template-columns: 1.2fr 1fr; border: 1px solid var(--line-strong); border-radius: 18px; overflow: hidden; background: linear-gradient(180deg, var(--surface), var(--bg-2)); margin: 36px 0 14px; }
-.sp-media { position: relative; aspect-ratio: 16 / 11; background: #080d18; overflow: hidden; }
+.spotlight { display: grid; grid-template-columns: minmax(0, 330px) 1fr; border: 1px solid var(--line-strong); border-radius: 18px; overflow: hidden; background: linear-gradient(180deg, var(--surface), var(--bg-2)); margin: 36px 0 14px; }
+.sp-media { position: relative; aspect-ratio: 500 / 780; background: #080d18; overflow: hidden; }
 .sp-media video, .sp-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .sp-media .badge { position: absolute; top: 14px; left: 14px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: rgba(6, 9, 17, 0.7); border: 1px solid var(--line-strong); padding: 5px 10px; border-radius: 6px; backdrop-filter: blur(4px); }
 .sp-body { padding: clamp(26px, 3.2vw, 44px); display: flex; flex-direction: column; justify-content: center; }
@@ -344,7 +344,7 @@ html.js .reveal.in { opacity: 1; transform: none; }
 .sp-metrics span { font-family: var(--mono); font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
 .sp-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 22px; }
 .sp-cta { display: flex; flex-wrap: wrap; gap: 10px; }
-@media (max-width: 860px) { .spotlight { grid-template-columns: 1fr; } .sp-media { aspect-ratio: 16 / 9; } }
+@media (max-width: 860px) { .spotlight { grid-template-columns: 1fr; } .sp-media { aspect-ratio: 500 / 780; max-width: 300px; width: 100%; margin: 0 auto; } }
 
 /* ---------- projects ---------- */
 .filters { display: flex; flex-wrap: wrap; gap: 9px; margin: 34px 0 28px; }

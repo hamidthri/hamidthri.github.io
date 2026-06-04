@@ -17,8 +17,8 @@ links:
   - { label: 'arXiv:2405.16266', url: 'https://arxiv.org/abs/2405.16266' }
   - { label: 'DOI', url: 'https://doi.org/10.48550/arXiv.2405.16266' }
   - { label: 'Code · navbot_ppo', url: 'https://github.com/hamidthri/navbot_ppo' }
-video: '/media/navbot_navigation.mp4'
-poster: '/media/navbot_navigation_poster.jpg'
+video: '/media/navbot_topview.mp4'
+poster: '/media/navbot_topview_poster.jpg'
 featured: true
 order: 1
 ---
