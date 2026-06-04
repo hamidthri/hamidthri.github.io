@@ -38,15 +38,18 @@ if (nav) {
 /* ---------- mobile menu ---------- */
 const toggle = document.getElementById('nav-toggle');
 if (toggle) {
-  toggle.addEventListener('click', () => {
-    const open = document.body.classList.toggle('nav-open');
+  const scrim = document.getElementById('nav-scrim');
+  const setMenu = (open: boolean) => {
+    document.body.classList.toggle('nav-open', open);
     toggle.setAttribute('aria-expanded', String(open));
+  };
+  toggle.addEventListener('click', () => setMenu(!document.body.classList.contains('nav-open')));
+  scrim?.addEventListener('click', () => setMenu(false));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setMenu(false);
   });
   document.querySelectorAll('#nav-links a').forEach((a) =>
-    a.addEventListener('click', () => {
-      document.body.classList.remove('nav-open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }),
+    a.addEventListener('click', () => setMenu(false)),
   );
 }
 
