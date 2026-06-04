@@ -5,11 +5,11 @@
  * byte-for-byte port of the scene in the original index.html
  * (maxSpeed = min(W,H)*0.0045, per-frame integration, 36 beams).
  *
- * The RENDERING has been redesigned: the robot is now a sci-fi survey craft
- * (layered hull, thruster plume, banking, spinning scanner rings, sensor eye)
- * and the goal is a target-lock energy orb (pulsing core, counter-rotating
- * rings, lock brackets, orbiting motes, emitted shock rings). None of this
- * touches the simulation — only how it is drawn.
+ * RENDERING is fully themed: every colour is read from CSS custom properties
+ * (the --sc-* tokens), and the compositing flips between additive "glow" on the
+ * dark theme and normal "ink" drawing on the light theme — so the same scene
+ * reads as neon-on-black or ink-on-white. It re-reads the palette live on the
+ * `themechange` event dispatched by the theme toggle.
  */
 export interface SceneHandle {
   dispose(): void;
@@ -17,6 +17,35 @@ export interface SceneHandle {
 
 interface Obstacle { x: number; y: number; r: number; lit: number; }
 interface Robot { x: number; y: number; vx: number; vy: number; heading: number; }
+
+type Palette = ReturnType<typeof readPalette>;
+
+const root = document.documentElement;
+
+function readPalette() {
+  const cs = getComputedStyle(root);
+  const v = (name: string, fallback: string) => (cs.getPropertyValue(name) || fallback).trim();
+  const dark = root.getAttribute('data-theme') !== 'light';
+  return {
+    dark,
+    glow: (dark ? 'lighter' : 'source-over') as GlobalCompositeOperation,
+    accent: v('--accent', '#37e7df'),
+    signal: v('--signal', '#ffc15e'),
+    beam: v('--sc-beam', '55,231,223'),
+    spark: v('--sc-spark', '150,255,248'),
+    sparkCore: v('--sc-spark-core', '#eafffe'),
+    nodeFrom: v('--sc-node-from', '22,34,56'),
+    nodeTo: v('--sc-node-to', '8,13,24'),
+    nodeStroke: v('--sc-node-stroke', '55,231,223'),
+    trail: v('--sc-trail', '255,200,120'),
+    hullFrom: v('--sc-hull-from', '9,28,38'),
+    hullTo: v('--sc-hull-to', '24,104,108'),
+    eye: v('--sc-eye', '#eafffe'),
+    wing: v('--sc-wing', '150,255,248'),
+    goal: v('--sc-goal', '255,193,94'),
+    goalCore: v('--sc-goal-core', '#fffaf0'),
+  };
+}
 
 export function startScene2d(
   canvas: HTMLCanvasElement,
@@ -39,10 +68,7 @@ export function startScene2d(
   let bank = 0;               // smoothed turn lean of the craft
   let pulses: { born: number }[] = []; // shock rings emitted by the goal
   let lastPulse = -99;
-
-  const css = getComputedStyle(document.documentElement);
-  const ACC = (css.getPropertyValue('--accent') || '#37e7df').trim();
-  const SIG = (css.getPropertyValue('--signal') || '#ffc15e').trim();
+  let P: Palette = readPalette();
 
   function rand(a: number, b: number) { return a + Math.random() * (b - a); }
   function angDiff(a: number, b: number) {
@@ -161,6 +187,7 @@ export function startScene2d(
     bank += (targetBank - bank) * 0.12;
 
     const spN = Math.min(1, sp / maxSpeed); // normalised speed 0..1
+    const GLOW = P.glow;
 
     // ===========================================================
     //  DRAW
@@ -170,7 +197,7 @@ export function startScene2d(
     // ---- path trail: glowing twin-pass ribbon ----
     if (trail.length > 1) {
       ctx.save();
-      ctx.globalCompositeOperation = 'lighter';
+      ctx.globalCompositeOperation = GLOW;
       ctx.lineCap = 'round';
       // soft outer glow
       for (let k = 1; k < trail.length; k++) {
@@ -178,7 +205,7 @@ export function startScene2d(
         ctx.beginPath();
         ctx.moveTo(trail[k - 1].x, trail[k - 1].y);
         ctx.lineTo(trail[k].x, trail[k].y);
-        ctx.strokeStyle = 'rgba(255,180,90,' + (a * 0.16) + ')';
+        ctx.strokeStyle = 'rgba(' + P.trail + ',' + (a * 0.16) + ')';
         ctx.lineWidth = 5 * a + 0.5;
         ctx.stroke();
       }
@@ -188,7 +215,7 @@ export function startScene2d(
         ctx.beginPath();
         ctx.moveTo(trail[k - 1].x, trail[k - 1].y);
         ctx.lineTo(trail[k].x, trail[k].y);
-        ctx.strokeStyle = 'rgba(255,210,140,' + (a * 0.6) + ')';
+        ctx.strokeStyle = 'rgba(' + P.trail + ',' + (a * 0.6) + ')';
         ctx.lineWidth = 1.3 * a + 0.3;
         ctx.stroke();
       }
@@ -198,7 +225,7 @@ export function startScene2d(
     // ---- LiDAR beams ----
     const range = Math.min(W, H) * 0.30;
     ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalCompositeOperation = GLOW;
     for (let bI = 0; bI < BEAMS; bI++) {
       const ang = (bI / BEAMS) * Math.PI * 2;
       const dx = Math.cos(ang), dy = Math.sin(ang);
@@ -210,16 +237,16 @@ export function startScene2d(
       }
       const ex = r.x + dx * dist, ey = r.y + dy * dist;
       const grad = ctx.createLinearGradient(r.x, r.y, ex, ey);
-      grad.addColorStop(0, 'rgba(55,231,223,0.24)');
-      grad.addColorStop(1, 'rgba(55,231,223,0)');
+      grad.addColorStop(0, 'rgba(' + P.beam + ',0.24)');
+      grad.addColorStop(1, 'rgba(' + P.beam + ',0)');
       ctx.beginPath(); ctx.moveTo(r.x, r.y); ctx.lineTo(ex, ey);
       ctx.strokeStyle = grad; ctx.lineWidth = 1; ctx.stroke();
       if (hitObs >= 0) {
         obstacles[hitObs].lit = Math.min(1, obstacles[hitObs].lit + 0.25);
         ctx.beginPath(); ctx.arc(ex, ey, 2.4, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(150,255,248,0.9)'; ctx.fill();
+        ctx.fillStyle = 'rgba(' + P.spark + ',0.9)'; ctx.fill();
         ctx.beginPath(); ctx.arc(ex, ey, 1.3, 0, Math.PI * 2);
-        ctx.fillStyle = '#eafffe'; ctx.fill();
+        ctx.fillStyle = P.sparkCore; ctx.fill();
       }
     }
     ctx.restore();
@@ -229,22 +256,22 @@ export function startScene2d(
       const ob = obstacles[oi];
       ob.lit *= 0.94;
       const og = ctx.createRadialGradient(ob.x - ob.r * 0.35, ob.y - ob.r * 0.35, ob.r * 0.1, ob.x, ob.y, ob.r);
-      og.addColorStop(0, 'rgba(22,34,56,0.95)');
-      og.addColorStop(1, 'rgba(8,13,24,0.92)');
+      og.addColorStop(0, 'rgba(' + P.nodeFrom + ',0.95)');
+      og.addColorStop(1, 'rgba(' + P.nodeTo + ',0.92)');
       ctx.beginPath(); ctx.arc(ob.x, ob.y, ob.r, 0, Math.PI * 2);
       ctx.fillStyle = og; ctx.fill();
       ctx.lineWidth = 1.2;
-      ctx.strokeStyle = 'rgba(55,231,223,' + (0.18 + ob.lit * 0.7) + ')';
+      ctx.strokeStyle = 'rgba(' + P.nodeStroke + ',' + (0.18 + ob.lit * 0.7) + ')';
       ctx.stroke();
       // inner detail ring
       ctx.beginPath(); ctx.arc(ob.x, ob.y, ob.r * 0.58, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(55,231,223,' + (0.07 + ob.lit * 0.35) + ')';
+      ctx.strokeStyle = 'rgba(' + P.nodeStroke + ',' + (0.07 + ob.lit * 0.35) + ')';
       ctx.lineWidth = 1; ctx.stroke();
       if (ob.lit > 0.04) {
         ctx.save();
-        ctx.globalCompositeOperation = 'lighter';
+        ctx.globalCompositeOperation = GLOW;
         ctx.beginPath(); ctx.arc(ob.x, ob.y, ob.r + 4 + ob.lit * 6, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(120,255,247,' + (ob.lit * 0.35) + ')'; ctx.lineWidth = 1.4; ctx.stroke();
+        ctx.strokeStyle = 'rgba(' + P.spark + ',' + (ob.lit * 0.35) + ')'; ctx.lineWidth = 1.4; ctx.stroke();
         ctx.restore();
       }
     }
@@ -260,7 +287,7 @@ export function startScene2d(
     }
     ctx.save();
     ctx.translate(g.x, g.y);
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalCompositeOperation = GLOW;
 
     // expanding shock rings
     for (let pi = 0; pi < pulses.length; pi++) {
@@ -269,34 +296,34 @@ export function startScene2d(
       const al = 0.45 - age * 0.6;
       if (al <= 0) continue;
       ctx.beginPath(); ctx.arc(0, 0, pr, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(255,193,94,' + al + ')';
+      ctx.strokeStyle = 'rgba(' + P.goal + ',' + al + ')';
       ctx.lineWidth = 1.4; ctx.stroke();
     }
 
     // energy core
     const corePulse = 4.5 + Math.sin(time * 4) * 1.4;
     const cg = ctx.createRadialGradient(0, 0, 0, 0, 0, corePulse + 9);
-    cg.addColorStop(0, 'rgba(255,244,210,0.95)');
-    cg.addColorStop(0.4, 'rgba(255,193,94,0.5)');
-    cg.addColorStop(1, 'rgba(255,193,94,0)');
+    cg.addColorStop(0, 'rgba(' + P.goal + ',0.92)');
+    cg.addColorStop(0.4, 'rgba(' + P.goal + ',0.5)');
+    cg.addColorStop(1, 'rgba(' + P.goal + ',0)');
     ctx.beginPath(); ctx.arc(0, 0, corePulse + 9, 0, Math.PI * 2);
     ctx.fillStyle = cg; ctx.fill();
     ctx.beginPath(); ctx.arc(0, 0, 2, 0, Math.PI * 2);
-    ctx.fillStyle = '#fffaf0'; ctx.fill();
+    ctx.fillStyle = P.goalCore; ctx.fill();
 
     // rotating segmented ring
     ctx.save();
     ctx.rotate(time * 0.9);
     ctx.setLineDash([6, 7]);
     ctx.beginPath(); ctx.arc(0, 0, 13, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(255,193,94,0.85)'; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.strokeStyle = 'rgba(' + P.goal + ',0.85)'; ctx.lineWidth = 1.5; ctx.stroke();
     ctx.restore();
     // inner counter-rotating ring
     ctx.save();
     ctx.rotate(-time * 1.4);
     ctx.setLineDash([3, 5]);
     ctx.beginPath(); ctx.arc(0, 0, 8.5, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(255,222,160,0.6)'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.strokeStyle = 'rgba(' + P.goal + ',0.6)'; ctx.lineWidth = 1; ctx.stroke();
     ctx.restore();
     ctx.setLineDash([]);
 
@@ -304,7 +331,7 @@ export function startScene2d(
     const br = 18 + Math.sin(time * 4) * 2;
     ctx.save();
     ctx.rotate(time * 0.3);
-    ctx.strokeStyle = SIG; ctx.lineWidth = 1.6; ctx.lineCap = 'round';
+    ctx.strokeStyle = P.signal; ctx.lineWidth = 1.6; ctx.lineCap = 'round';
     for (let c = 0; c < 4; c++) {
       ctx.save();
       ctx.rotate(c * Math.PI / 2);
@@ -320,7 +347,7 @@ export function startScene2d(
       const a = time * 1.6 + o * (Math.PI * 2 / 3);
       const px = Math.cos(a) * 13, py = Math.sin(a) * 13;
       ctx.beginPath(); ctx.arc(px, py, 1.5, 0, Math.PI * 2);
-      ctx.fillStyle = '#ffe6b0'; ctx.fill();
+      ctx.fillStyle = 'rgb(' + P.goal + ')'; ctx.fill();
     }
     ctx.restore();
 
@@ -330,13 +357,13 @@ export function startScene2d(
     // range ring (rotating dashed tech ring, under the craft)
     ctx.save();
     ctx.translate(r.x, r.y);
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalCompositeOperation = GLOW;
 
     ctx.save();
     ctx.rotate(time * 0.15);
     ctx.setLineDash([4, 10]);
     ctx.beginPath(); ctx.arc(0, 0, range, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(55,231,223,0.08)'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.strokeStyle = 'rgba(' + P.beam + ',0.08)'; ctx.lineWidth = 1; ctx.stroke();
     ctx.restore();
     ctx.setLineDash([]);
 
@@ -348,7 +375,7 @@ export function startScene2d(
       ctx.rotate(time * (0.7 + ri * 0.6) * dir);
       ctx.setLineDash([rad * 0.5, rad * 0.95]);
       ctx.beginPath(); ctx.arc(0, 0, rad, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(55,231,223,' + (0.4 - ri * 0.16) + ')';
+      ctx.strokeStyle = 'rgba(' + P.beam + ',' + (0.4 - ri * 0.16) + ')';
       ctx.lineWidth = 1.1; ctx.stroke();
       ctx.restore();
     }
@@ -360,14 +387,14 @@ export function startScene2d(
     ctx.translate(r.x, r.y);
     ctx.rotate(r.heading);
 
-    // thruster plume (additive, behind the hull)
+    // thruster plume (additive on dark, behind the hull)
     const plume = 14 + spN * 24 + Math.sin(time * 28) * 2;
     ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalCompositeOperation = GLOW;
     const pg = ctx.createLinearGradient(-6, 0, -6 - plume, 0);
-    pg.addColorStop(0, 'rgba(150,255,248,' + (0.45 * spN + 0.18) + ')');
-    pg.addColorStop(0.5, 'rgba(55,231,223,0.18)');
-    pg.addColorStop(1, 'rgba(55,231,223,0)');
+    pg.addColorStop(0, 'rgba(' + P.spark + ',' + (0.45 * spN + 0.18) + ')');
+    pg.addColorStop(0.5, 'rgba(' + P.beam + ',0.18)');
+    pg.addColorStop(1, 'rgba(' + P.beam + ',0)');
     ctx.beginPath();
     ctx.moveTo(-5, 4.5); ctx.lineTo(-6 - plume, 0); ctx.lineTo(-5, -4.5); ctx.closePath();
     ctx.fillStyle = pg; ctx.fill();
@@ -377,7 +404,7 @@ export function startScene2d(
     ctx.transform(1, 0, bank * 0.5, 1, 0, 0);
 
     // hull
-    ctx.shadowColor = ACC; ctx.shadowBlur = 16;
+    ctx.shadowColor = P.accent; ctx.shadowBlur = 16;
     ctx.beginPath();
     ctx.moveTo(16, 0);
     ctx.lineTo(4, 7);
@@ -387,28 +414,28 @@ export function startScene2d(
     ctx.lineTo(4, -7);
     ctx.closePath();
     const hg = ctx.createLinearGradient(-8, 0, 16, 0);
-    hg.addColorStop(0, 'rgba(9,28,38,0.96)');
-    hg.addColorStop(1, 'rgba(24,104,108,0.96)');
+    hg.addColorStop(0, 'rgba(' + P.hullFrom + ',0.96)');
+    hg.addColorStop(1, 'rgba(' + P.hullTo + ',0.96)');
     ctx.fillStyle = hg; ctx.fill();
     ctx.shadowBlur = 0;
-    ctx.lineWidth = 1.4; ctx.strokeStyle = ACC; ctx.stroke();
+    ctx.lineWidth = 1.4; ctx.strokeStyle = P.accent; ctx.stroke();
 
     // wing struts
     ctx.beginPath();
     ctx.moveTo(2, 5); ctx.lineTo(-6, 7);
     ctx.moveTo(2, -5); ctx.lineTo(-6, -7);
-    ctx.strokeStyle = 'rgba(150,255,248,0.7)'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.strokeStyle = 'rgba(' + P.wing + ',0.7)'; ctx.lineWidth = 1; ctx.stroke();
 
     // sensor eye (pulsing core near the nose)
     const eye = 2 + Math.sin(time * 5) * 0.5;
     ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalCompositeOperation = GLOW;
     ctx.beginPath(); ctx.arc(6.5, 0, eye + 3, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(150,255,248,0.25)'; ctx.fill();
+    ctx.fillStyle = 'rgba(' + P.spark + ',0.25)'; ctx.fill();
     ctx.restore();
     ctx.beginPath(); ctx.arc(6.5, 0, eye, 0, Math.PI * 2);
-    ctx.shadowColor = ACC; ctx.shadowBlur = 10;
-    ctx.fillStyle = '#eafffe'; ctx.fill();
+    ctx.shadowColor = P.accent; ctx.shadowBlur = 10;
+    ctx.fillStyle = P.eye; ctx.fill();
     ctx.shadowBlur = 0;
 
     ctx.restore();
@@ -436,6 +463,14 @@ export function startScene2d(
   let rt = 0;
   const onResize = () => { clearTimeout(rt); rt = window.setTimeout(start, 200); };
   window.addEventListener('resize', onResize);
+
+  // re-read the palette when the theme toggles (and repaint once if paused)
+  const onTheme = () => {
+    P = readPalette();
+    if (reduce) { step(performance.now()); cancelAnimationFrame(rafId); }
+  };
+  window.addEventListener('themechange', onTheme);
+
   start();
 
   return {
@@ -444,6 +479,7 @@ export function startScene2d(
       canvas.removeEventListener('mousemove', onMove);
       canvas.removeEventListener('mouseleave', onLeave);
       window.removeEventListener('resize', onResize);
+      window.removeEventListener('themechange', onTheme);
     },
   };
 }

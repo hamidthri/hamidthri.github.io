@@ -35,6 +35,30 @@ if (nav) {
   window.addEventListener('scroll', onScroll, { passive: true });
 }
 
+/* ---------- theme toggle (light / dark) ----------
+   The head script already set <html data-theme> from localStorage or the OS.
+   Here we sync the meta + label, persist ONLY on an explicit toggle (so a
+   visitor who never toggled keeps following their OS), and tell the hero
+   canvas to re-read its palette. */
+const themeBtn = document.getElementById('theme-toggle');
+const rootEl = document.documentElement;
+const metaTheme = document.querySelector('meta[name="theme-color"]');
+const applyTheme = (t: 'light' | 'dark', persist: boolean) => {
+  rootEl.setAttribute('data-theme', t);
+  if (persist) { try { localStorage.setItem('theme', t); } catch { /* private mode */ } }
+  themeBtn?.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+  metaTheme?.setAttribute('content', t === 'dark' ? '#060911' : '#f6f8fc');
+  window.dispatchEvent(new CustomEvent('themechange', { detail: t }));
+};
+applyTheme(rootEl.getAttribute('data-theme') === 'light' ? 'light' : 'dark', false);
+themeBtn?.addEventListener('click', () =>
+  applyTheme(rootEl.getAttribute('data-theme') === 'light' ? 'dark' : 'light', true),
+);
+const mqDark = window.matchMedia('(prefers-color-scheme: dark)');
+mqDark.addEventListener?.('change', (e) => {
+  if (!localStorage.getItem('theme')) applyTheme(e.matches ? 'dark' : 'light', false);
+});
+
 /* ---------- mobile menu ---------- */
 const toggle = document.getElementById('nav-toggle');
 if (toggle) {

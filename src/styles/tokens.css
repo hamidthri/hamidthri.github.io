@@ -1,8 +1,13 @@
 /* ============================================================
-   Design tokens — ported verbatim from the original index.html
-   :root the user approved. Single source of truth for the theme.
+   Design tokens — the single source of truth for the theme.
+   :root is the DARK theme (the original, approved palette).
+   :root[data-theme="light"] overrides it for the light theme.
+   The active theme is set on <html data-theme> by an inline script
+   in the document head (resolved from localStorage or the OS).
    ============================================================ */
 :root {
+  color-scheme: dark;
+
   --bg: #060911;
   --bg-2: #0a0f1c;
   --surface: #0d1422;
@@ -18,6 +23,14 @@
   --accent-soft: rgba(55, 231, 223, 0.1);
   --signal-soft: rgba(255, 193, 94, 0.1);
 
+  /* theme-aware surfaces / ink (used by global.css literals) */
+  --on-accent: #04201f;          /* text/icon colour on top of an --accent fill */
+  --media-well: #080d18;         /* background behind images/videos + placeholders */
+  --tint: rgba(255, 255, 255, 0.015); /* faint surface tint on buttons/cards */
+  --shadow-strong: rgba(0, 0, 0, 0.8);
+  --veil: 6, 9, 17;              /* rgb triple for the hero veil + scene background */
+  --selection: rgba(55, 231, 223, 0.25);
+
   /* category accents (project themes) */
   --cat-robotics: #22d3ee;
   --cat-vision3d: #8b5cf6;
@@ -25,10 +38,74 @@
   --cat-ml: #10b981;
   --cat-systems: #f43f5e;
 
+  /* ---- hero canvas palette (read by scene2d.ts) ----
+     triples are "r,g,b" so the script can vary the alpha. */
+  --sc-beam: 55, 231, 223;
+  --sc-spark: 150, 255, 248;
+  --sc-spark-core: #eafffe;
+  --sc-node-from: 22, 34, 56;
+  --sc-node-to: 8, 13, 24;
+  --sc-node-stroke: 55, 231, 223;
+  --sc-trail: 255, 200, 120;
+  --sc-hull-from: 9, 28, 38;
+  --sc-hull-to: 24, 104, 108;
+  --sc-eye: #eafffe;
+  --sc-wing: 150, 255, 248;
+  --sc-goal: 255, 193, 94;
+  --sc-goal-core: #fffaf0;
+
   --radius: 14px;
   --maxw: 1180px;
   --maxw-prose: 760px;
   --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
   --display: 'Bricolage Grotesque', system-ui, sans-serif;
   --body: 'Hanken Grotesk', system-ui, sans-serif;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #f6f8fc;
+  --bg-2: #eef2f8;
+  --surface: #ffffff;
+  --surface-2: #eef3fa;
+  --line: rgba(15, 40, 75, 0.1);
+  --line-strong: rgba(15, 40, 75, 0.18);
+  --text: #0d1726;
+  --muted: #50617a;
+  --faint: #8593a8;
+  --accent: #0b8a82;       /* deeper teal — reads as text/ink on white */
+  --accent-deep: #076b64;
+  --signal: #b9730a;       /* deeper amber */
+  --accent-soft: rgba(11, 138, 130, 0.1);
+  --signal-soft: rgba(185, 115, 10, 0.1);
+
+  --on-accent: #ffffff;          /* light text on the deeper-teal fill */
+  --media-well: #e7edf5;
+  --tint: rgba(15, 40, 75, 0.022);
+  --shadow-strong: rgba(20, 40, 70, 0.22);
+  --veil: 246, 248, 252;
+  --selection: rgba(11, 138, 130, 0.18);
+
+  --cat-robotics: #0891b2;
+  --cat-vision3d: #7c3aed;
+  --cat-cv: #c2700a;
+  --cat-ml: #059669;
+  --cat-systems: #e11d48;
+
+  /* hero canvas palette — ink-on-white (scene2d switches to normal
+     compositing in light mode, so these are darker/opaque tones) */
+  --sc-beam: 13, 148, 136;
+  --sc-spark: 8, 110, 104;
+  --sc-spark-core: #064e47;
+  --sc-node-from: 224, 232, 244;
+  --sc-node-to: 201, 213, 229;
+  --sc-node-stroke: 11, 138, 130;
+  --sc-trail: 200, 120, 10;
+  --sc-hull-from: 13, 148, 136;
+  --sc-hull-to: 6, 92, 88;
+  --sc-eye: #f2fffe;       /* sits on the teal hull, so a light eye still reads */
+  --sc-wing: 230, 255, 252;
+  --sc-goal: 194, 119, 10;
+  --sc-goal-core: #7a4a00;
 }

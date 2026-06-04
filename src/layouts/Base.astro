@@ -20,7 +20,22 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <!doctype html>
 <html lang="en">
   <head>
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline>
+      // Resolve the theme before first paint (no flash of the wrong theme).
+      (function () {
+        var d = document.documentElement;
+        try {
+          var t = localStorage.getItem('theme');
+          if (t !== 'light' && t !== 'dark') {
+            t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+          }
+          d.setAttribute('data-theme', t);
+        } catch (e) {
+          d.setAttribute('data-theme', 'dark');
+        }
+        d.classList.add('js');
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#060911" />
