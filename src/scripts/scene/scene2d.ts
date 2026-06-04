@@ -1,12 +1,15 @@
 /**
  * HERO — robot navigation + LiDAR scan (2D canvas).
- * A faithful, verbatim port of the scene in the original index.html: a robot
- * steers toward the cursor (its goal), sensing and avoiding obstacles, casting
- * LiDAR beams. Speed and behaviour are byte-for-byte identical to that file
+ * The robot steers toward the cursor (its goal), sensing and avoiding
+ * obstacles, casting LiDAR beams. The STEERING / PHYSICS is a faithful,
+ * byte-for-byte port of the scene in the original index.html
  * (maxSpeed = min(W,H)*0.0045, per-frame integration, 36 beams).
  *
- * The only additions over the inline original are the module wrapper and a
- * dispose() that detaches listeners — the animation itself is unchanged.
+ * The RENDERING has been redesigned: the robot is now a sci-fi survey craft
+ * (layered hull, thruster plume, banking, spinning scanner rings, sensor eye)
+ * and the goal is a target-lock energy orb (pulsing core, counter-rotating
+ * rings, lock brackets, orbiting motes, emitted shock rings). None of this
+ * touches the simulation — only how it is drawn.
  */
 export interface SceneHandle {
   dispose(): void;
@@ -31,11 +34,23 @@ export function startScene2d(
   let t0 = performance.now();
   const BEAMS = 36;
 
+  // ---- render-only state (no effect on the simulation) ----
+  let prevHeading = 0;        // for the banking lean
+  let bank = 0;               // smoothed turn lean of the craft
+  let pulses: { born: number }[] = []; // shock rings emitted by the goal
+  let lastPulse = -99;
+
   const css = getComputedStyle(document.documentElement);
   const ACC = (css.getPropertyValue('--accent') || '#37e7df').trim();
   const SIG = (css.getPropertyValue('--signal') || '#ffc15e').trim();
 
   function rand(a: number, b: number) { return a + Math.random() * (b - a); }
+  function angDiff(a: number, b: number) {
+    let d = a - b;
+    while (d > Math.PI) d -= Math.PI * 2;
+    while (d < -Math.PI) d += Math.PI * 2;
+    return d;
+  }
 
   function buildObstacles() {
     obstacles = [];
@@ -103,7 +118,7 @@ export function startScene2d(
       g.y = H * (0.5 + 0.34 * Math.sin(time * 0.55 + 1.3));
     }
 
-    // ---- steering: seek + obstacle avoidance + boundary ----
+    // ---- steering: seek + obstacle avoidance + boundary ---- (UNCHANGED PHYSICS)
     const maxSpeed = Math.min(W, H) * 0.0045;
     const sx = g.x - r.x, sy = g.y - r.y;
     const sd = Math.hypot(sx, sy) || 1;
@@ -139,24 +154,51 @@ export function startScene2d(
     trail.push({ x: r.x, y: r.y });
     if (trail.length > 110) trail.shift();
 
-    // ---- draw ----
+    // banking lean from how sharply the craft is turning (render only)
+    const turn = angDiff(r.heading, prevHeading);
+    prevHeading = r.heading;
+    const targetBank = Math.max(-0.6, Math.min(0.6, turn * 9));
+    bank += (targetBank - bank) * 0.12;
+
+    const spN = Math.min(1, sp / maxSpeed); // normalised speed 0..1
+
+    // ===========================================================
+    //  DRAW
+    // ===========================================================
     ctx.clearRect(0, 0, W, H);
 
-    // path trail
+    // ---- path trail: glowing twin-pass ribbon ----
     if (trail.length > 1) {
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.lineCap = 'round';
+      // soft outer glow
       for (let k = 1; k < trail.length; k++) {
         const a = k / trail.length;
         ctx.beginPath();
         ctx.moveTo(trail[k - 1].x, trail[k - 1].y);
         ctx.lineTo(trail[k].x, trail[k].y);
-        ctx.strokeStyle = 'rgba(255,193,94,' + (a * 0.5) + ')';
-        ctx.lineWidth = 1.4 * a + 0.3;
+        ctx.strokeStyle = 'rgba(255,180,90,' + (a * 0.16) + ')';
+        ctx.lineWidth = 5 * a + 0.5;
         ctx.stroke();
       }
+      // bright core
+      for (let k = 1; k < trail.length; k++) {
+        const a = k / trail.length;
+        ctx.beginPath();
+        ctx.moveTo(trail[k - 1].x, trail[k - 1].y);
+        ctx.lineTo(trail[k].x, trail[k].y);
+        ctx.strokeStyle = 'rgba(255,210,140,' + (a * 0.6) + ')';
+        ctx.lineWidth = 1.3 * a + 0.3;
+        ctx.stroke();
+      }
+      ctx.restore();
     }
 
-    // LiDAR beams
+    // ---- LiDAR beams ----
     const range = Math.min(W, H) * 0.30;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
     for (let bI = 0; bI < BEAMS; bI++) {
       const ang = (bI / BEAMS) * Math.PI * 2;
       const dx = Math.cos(ang), dy = Math.sin(ang);
@@ -168,59 +210,210 @@ export function startScene2d(
       }
       const ex = r.x + dx * dist, ey = r.y + dy * dist;
       const grad = ctx.createLinearGradient(r.x, r.y, ex, ey);
-      grad.addColorStop(0, 'rgba(55,231,223,0.22)');
+      grad.addColorStop(0, 'rgba(55,231,223,0.24)');
       grad.addColorStop(1, 'rgba(55,231,223,0)');
       ctx.beginPath(); ctx.moveTo(r.x, r.y); ctx.lineTo(ex, ey);
       ctx.strokeStyle = grad; ctx.lineWidth = 1; ctx.stroke();
       if (hitObs >= 0) {
         obstacles[hitObs].lit = Math.min(1, obstacles[hitObs].lit + 0.25);
-        ctx.beginPath(); ctx.arc(ex, ey, 1.6, 0, Math.PI * 2);
-        ctx.fillStyle = ACC; ctx.fill();
+        ctx.beginPath(); ctx.arc(ex, ey, 2.4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(150,255,248,0.9)'; ctx.fill();
+        ctx.beginPath(); ctx.arc(ex, ey, 1.3, 0, Math.PI * 2);
+        ctx.fillStyle = '#eafffe'; ctx.fill();
       }
     }
+    ctx.restore();
 
-    // obstacles
+    // ---- obstacles: tech nodes ----
     for (let oi = 0; oi < obstacles.length; oi++) {
       const ob = obstacles[oi];
       ob.lit *= 0.94;
+      const og = ctx.createRadialGradient(ob.x - ob.r * 0.35, ob.y - ob.r * 0.35, ob.r * 0.1, ob.x, ob.y, ob.r);
+      og.addColorStop(0, 'rgba(22,34,56,0.95)');
+      og.addColorStop(1, 'rgba(8,13,24,0.92)');
       ctx.beginPath(); ctx.arc(ob.x, ob.y, ob.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(13,20,34,0.85)'; ctx.fill();
+      ctx.fillStyle = og; ctx.fill();
       ctx.lineWidth = 1.2;
-      ctx.strokeStyle = 'rgba(55,231,223,' + (0.18 + ob.lit * 0.6) + ')';
+      ctx.strokeStyle = 'rgba(55,231,223,' + (0.18 + ob.lit * 0.7) + ')';
       ctx.stroke();
+      // inner detail ring
+      ctx.beginPath(); ctx.arc(ob.x, ob.y, ob.r * 0.58, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(55,231,223,' + (0.07 + ob.lit * 0.35) + ')';
+      ctx.lineWidth = 1; ctx.stroke();
       if (ob.lit > 0.04) {
-        ctx.beginPath(); ctx.arc(ob.x, ob.y, ob.r + 4 + ob.lit * 5, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(55,231,223,' + (ob.lit * 0.25) + ')'; ctx.lineWidth = 1; ctx.stroke();
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.beginPath(); ctx.arc(ob.x, ob.y, ob.r + 4 + ob.lit * 6, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(120,255,247,' + (ob.lit * 0.35) + ')'; ctx.lineWidth = 1.4; ctx.stroke();
+        ctx.restore();
       }
     }
 
-    // goal reticle
+    // ===========================================================
+    //  GOAL — target-lock energy orb (the "moving object")
+    // ===========================================================
+    // emit a shock ring periodically
+    if (time - lastPulse > 1.25) {
+      lastPulse = time;
+      pulses.push({ born: time });
+      if (pulses.length > 4) pulses.shift();
+    }
     ctx.save();
     ctx.translate(g.x, g.y);
-    ctx.strokeStyle = SIG; ctx.lineWidth = 1.2;
-    const rr = 8 + Math.sin(time * 4) * 1.5;
-    ctx.beginPath(); ctx.arc(0, 0, rr, 0, Math.PI * 2); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(-rr - 4, 0); ctx.lineTo(-rr + 3, 0);
-    ctx.moveTo(rr - 3, 0); ctx.lineTo(rr + 4, 0);
-    ctx.moveTo(0, -rr - 4); ctx.lineTo(0, -rr + 3);
-    ctx.moveTo(0, rr - 3); ctx.lineTo(0, rr + 4); ctx.stroke();
-    ctx.fillStyle = SIG; ctx.beginPath(); ctx.arc(0, 0, 1.6, 0, Math.PI * 2); ctx.fill();
-    ctx.restore();
+    ctx.globalCompositeOperation = 'lighter';
 
-    // robot body
+    // expanding shock rings
+    for (let pi = 0; pi < pulses.length; pi++) {
+      const age = time - pulses[pi].born;
+      const pr = age * 64;
+      const al = 0.45 - age * 0.6;
+      if (al <= 0) continue;
+      ctx.beginPath(); ctx.arc(0, 0, pr, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(255,193,94,' + al + ')';
+      ctx.lineWidth = 1.4; ctx.stroke();
+    }
+
+    // energy core
+    const corePulse = 4.5 + Math.sin(time * 4) * 1.4;
+    const cg = ctx.createRadialGradient(0, 0, 0, 0, 0, corePulse + 9);
+    cg.addColorStop(0, 'rgba(255,244,210,0.95)');
+    cg.addColorStop(0.4, 'rgba(255,193,94,0.5)');
+    cg.addColorStop(1, 'rgba(255,193,94,0)');
+    ctx.beginPath(); ctx.arc(0, 0, corePulse + 9, 0, Math.PI * 2);
+    ctx.fillStyle = cg; ctx.fill();
+    ctx.beginPath(); ctx.arc(0, 0, 2, 0, Math.PI * 2);
+    ctx.fillStyle = '#fffaf0'; ctx.fill();
+
+    // rotating segmented ring
     ctx.save();
-    ctx.translate(r.x, r.y); ctx.rotate(r.heading);
-    ctx.shadowColor = ACC; ctx.shadowBlur = 14;
-    ctx.beginPath();
-    ctx.moveTo(11, 0); ctx.lineTo(-7, 7); ctx.lineTo(-4, 0); ctx.lineTo(-7, -7); ctx.closePath();
-    ctx.fillStyle = ACC; ctx.fill();
-    ctx.shadowBlur = 0;
+    ctx.rotate(time * 0.9);
+    ctx.setLineDash([6, 7]);
+    ctx.beginPath(); ctx.arc(0, 0, 13, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,193,94,0.85)'; ctx.lineWidth = 1.5; ctx.stroke();
     ctx.restore();
-    // robot range ring
-    ctx.beginPath(); ctx.arc(r.x, r.y, range, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(55,231,223,0.05)'; ctx.lineWidth = 1; ctx.stroke();
+    // inner counter-rotating ring
+    ctx.save();
+    ctx.rotate(-time * 1.4);
+    ctx.setLineDash([3, 5]);
+    ctx.beginPath(); ctx.arc(0, 0, 8.5, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,222,160,0.6)'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.restore();
+    ctx.setLineDash([]);
 
-    // telemetry (throttled)
+    // rotating lock brackets
+    const br = 18 + Math.sin(time * 4) * 2;
+    ctx.save();
+    ctx.rotate(time * 0.3);
+    ctx.strokeStyle = SIG; ctx.lineWidth = 1.6; ctx.lineCap = 'round';
+    for (let c = 0; c < 4; c++) {
+      ctx.save();
+      ctx.rotate(c * Math.PI / 2);
+      ctx.beginPath();
+      ctx.moveTo(br, br - 6); ctx.lineTo(br, br); ctx.lineTo(br - 6, br);
+      ctx.stroke();
+      ctx.restore();
+    }
+    ctx.restore();
+
+    // orbiting motes
+    for (let o = 0; o < 3; o++) {
+      const a = time * 1.6 + o * (Math.PI * 2 / 3);
+      const px = Math.cos(a) * 13, py = Math.sin(a) * 13;
+      ctx.beginPath(); ctx.arc(px, py, 1.5, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffe6b0'; ctx.fill();
+    }
+    ctx.restore();
+
+    // ===========================================================
+    //  ROBOT — sci-fi survey craft (the "robot")
+    // ===========================================================
+    // range ring (rotating dashed tech ring, under the craft)
+    ctx.save();
+    ctx.translate(r.x, r.y);
+    ctx.globalCompositeOperation = 'lighter';
+
+    ctx.save();
+    ctx.rotate(time * 0.15);
+    ctx.setLineDash([4, 10]);
+    ctx.beginPath(); ctx.arc(0, 0, range, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(55,231,223,0.08)'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.restore();
+    ctx.setLineDash([]);
+
+    // spinning scanner rings hugging the craft
+    for (let ri = 0; ri < 2; ri++) {
+      const dir = ri === 0 ? 1 : -1;
+      const rad = 16 + ri * 7;
+      ctx.save();
+      ctx.rotate(time * (0.7 + ri * 0.6) * dir);
+      ctx.setLineDash([rad * 0.5, rad * 0.95]);
+      ctx.beginPath(); ctx.arc(0, 0, rad, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(55,231,223,' + (0.4 - ri * 0.16) + ')';
+      ctx.lineWidth = 1.1; ctx.stroke();
+      ctx.restore();
+    }
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    // craft body (heading-aligned, banking)
+    ctx.save();
+    ctx.translate(r.x, r.y);
+    ctx.rotate(r.heading);
+
+    // thruster plume (additive, behind the hull)
+    const plume = 14 + spN * 24 + Math.sin(time * 28) * 2;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    const pg = ctx.createLinearGradient(-6, 0, -6 - plume, 0);
+    pg.addColorStop(0, 'rgba(150,255,248,' + (0.45 * spN + 0.18) + ')');
+    pg.addColorStop(0.5, 'rgba(55,231,223,0.18)');
+    pg.addColorStop(1, 'rgba(55,231,223,0)');
+    ctx.beginPath();
+    ctx.moveTo(-5, 4.5); ctx.lineTo(-6 - plume, 0); ctx.lineTo(-5, -4.5); ctx.closePath();
+    ctx.fillStyle = pg; ctx.fill();
+    ctx.restore();
+
+    // banking lean (shear x by y) — reads as tilting into the turn
+    ctx.transform(1, 0, bank * 0.5, 1, 0, 0);
+
+    // hull
+    ctx.shadowColor = ACC; ctx.shadowBlur = 16;
+    ctx.beginPath();
+    ctx.moveTo(16, 0);
+    ctx.lineTo(4, 7);
+    ctx.lineTo(-8, 9);
+    ctx.lineTo(-6, 0);
+    ctx.lineTo(-8, -9);
+    ctx.lineTo(4, -7);
+    ctx.closePath();
+    const hg = ctx.createLinearGradient(-8, 0, 16, 0);
+    hg.addColorStop(0, 'rgba(9,28,38,0.96)');
+    hg.addColorStop(1, 'rgba(24,104,108,0.96)');
+    ctx.fillStyle = hg; ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.lineWidth = 1.4; ctx.strokeStyle = ACC; ctx.stroke();
+
+    // wing struts
+    ctx.beginPath();
+    ctx.moveTo(2, 5); ctx.lineTo(-6, 7);
+    ctx.moveTo(2, -5); ctx.lineTo(-6, -7);
+    ctx.strokeStyle = 'rgba(150,255,248,0.7)'; ctx.lineWidth = 1; ctx.stroke();
+
+    // sensor eye (pulsing core near the nose)
+    const eye = 2 + Math.sin(time * 5) * 0.5;
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.beginPath(); ctx.arc(6.5, 0, eye + 3, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(150,255,248,0.25)'; ctx.fill();
+    ctx.restore();
+    ctx.beginPath(); ctx.arc(6.5, 0, eye, 0, Math.PI * 2);
+    ctx.shadowColor = ACC; ctx.shadowBlur = 10;
+    ctx.fillStyle = '#eafffe'; ctx.fill();
+    ctx.shadowBlur = 0;
+
+    ctx.restore();
+
+    // telemetry (throttled) — UNCHANGED
     telCount++;
     if (telCount % 6 === 0 && telPos && telV) {
       telPos.textContent = '[' + ((r.x / W * 2 - 1).toFixed(2)) + ', ' + ((r.y / H * 2 - 1) * -1).toFixed(2) + ']';
