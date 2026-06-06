@@ -471,6 +471,22 @@ export function startScene2d(
   };
   window.addEventListener('themechange', onTheme);
 
+  // Browsers pause requestAnimationFrame while the tab is backgrounded or the
+  // display sleeps, and sometimes drop the pending frame so the loop never
+  // resumes on its own (the hero appears frozen until reload). Re-kick it
+  // whenever the page becomes visible again. Because rafId always holds the
+  // single pending frame, cancel+request can't create a second loop.
+  const rekick = () => {
+    if (document.hidden) return;
+    cancelAnimationFrame(rafId);
+    if (reduce) { step(performance.now()); cancelAnimationFrame(rafId); }
+    else rafId = requestAnimationFrame(step);
+  };
+  const onVisibility = () => { if (!document.hidden) rekick(); };
+  document.addEventListener('visibilitychange', onVisibility);
+  window.addEventListener('pageshow', rekick);   // bfcache restore (back/forward)
+  window.addEventListener('focus', rekick);
+
   start();
 
   return {
@@ -480,6 +496,9 @@ export function startScene2d(
       canvas.removeEventListener('mouseleave', onLeave);
       window.removeEventListener('resize', onResize);
       window.removeEventListener('themechange', onTheme);
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('pageshow', rekick);
+      window.removeEventListener('focus', rekick);
     },
   };
 }

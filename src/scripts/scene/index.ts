@@ -13,5 +13,8 @@ export function bootHeroScene(canvas: HTMLCanvasElement): SceneHandle {
 const canvas = document.getElementById('scene') as HTMLCanvasElement | null;
 if (canvas) {
   const handle = bootHeroScene(canvas);
-  window.addEventListener('beforeunload', () => handle.dispose());
+  // Only tear down on a real unload. On bfcache (back/forward, or a tab the
+  // browser froze), e.persisted is true — keep the scene alive so its pageshow
+  // re-kick resumes it instead of leaving a frozen canvas.
+  window.addEventListener('pagehide', (e) => { if (!e.persisted) handle.dispose(); });
 }
