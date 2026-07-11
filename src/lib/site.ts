@@ -12,7 +12,7 @@ export const site = {
   url: 'https://hamidthri.github.io',
   location: 'Heilbronn, Germany',
   email: 'taheri.hamiid@gmail.com',
-  ogImage: '/og/default.png',
+  ogImage: '/og/default-v2.png',
 } as const;
 
 export const links = {
