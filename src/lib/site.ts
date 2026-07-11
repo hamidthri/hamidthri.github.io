@@ -52,6 +52,12 @@ export function personJsonLd() {
       'Mobile Robot Navigation',
       '3D Perception',
     ],
-    sameAs: [links.github, links.scholar, links.linkedin, 'https://orcid.org/0009-0002-4004-8466'],
+    sameAs: [
+      links.github,
+      links.scholar,
+      links.linkedin,
+      'https://orcid.org/0009-0002-4004-8466',
+      'https://www.wikidata.org/wiki/Q140506078',
+    ],
   };
 }
