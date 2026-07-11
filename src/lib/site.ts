@@ -40,6 +40,7 @@ export function personJsonLd() {
     '@type': 'Person',
     name: site.name,
     url: site.url,
+    image: `${site.url}/media/Hamid_prof.png`,
     email: site.email,
     jobTitle: 'Applied AI / Computer Vision & Robotics Engineer',
     address: { '@type': 'PostalAddress', addressLocality: 'Heilbronn', addressCountry: 'DE' },
