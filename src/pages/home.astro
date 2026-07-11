@@ -1,0 +1,224 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import HeroScene from '../components/HeroScene.astro';
+import Icon from '../components/Icon.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import PublicationRow from '../components/PublicationRow.astro';
+import { site, links } from '../lib/site';
+import { getRepoStats } from '../lib/github';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const pubs = (await getCollection('publications'))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const allProjects = await getCollection('projects');
+const navbot = allProjects.find((p) => p.data.repo === 'navbot_ppo');
+const featured = allProjects
+  .filter((p) => p.data.featured && p.data.repo !== 'navbot_ppo')
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 6);
+const stats = await getRepoStats([...featured.map((p) => p.data.repo), navbot?.data.repo]);
+const navStat = navbot ? stats.get(navbot.data.repo!) : null;
+
+const news = (await getCollection('news'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4);
+
+const dateFmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+
+const focus = [
+  {
+    icon: 'control',
+    title: 'Learning-based control',
+    desc: 'Safe navigation and continuous control for mobile robots, trained end-to-end with deep reinforcement learning.',
+    chips: ['PPO', 'DDPG', 'SAC', 'ROS', 'Gazebo'],
+  },
+  {
+    icon: 'eye',
+    title: 'Perception & 3D vision',
+    desc: 'Object & anomaly detection, OCR, lane and 3D scene understanding — from point clouds to industrial imaging.',
+    chips: ['PointNet++', 'DGCNN', 'ViT', 'YOLO', 'OpenCV'],
+  },
+  {
+    icon: 'stack',
+    title: 'Reliable AI systems',
+    desc: 'Production-grade ML: GPU inference, backend services, containers and CI/CD that move research into the real world.',
+    chips: ['TensorRT', 'Docker', 'Kubernetes', 'C/C++', 'Linux'],
+  },
+];
+---
+
+<Base>
+  <!-- HERO -->
+  <section id="hero">
+    <HeroScene />
+    <div class="hero-inner">
+      <div class="wrap">
+        <div class="avail"><span class="av-dot"></span> Open to PhD positions &amp; research collaborations</div>
+        <div class="tag"><span class="dot"></span> {site.tagline}</div>
+        <h1>
+          Hamid Taheri
+          <span class="sub">I build learning-based <em>perception</em> and <em>control</em> systems<br />for intelligent robots and real-world AI.</span>
+        </h1>
+        <p class="hero-desc">
+          Working at the intersection of <b>deep reinforcement learning</b>, <b>computer vision</b>,
+          <b>robotics</b>, and <b>production AI</b> — from safe mobile-robot navigation to real-time
+          perception infrastructure.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href={`${base}/research`}>View research</a>
+          <a class="btn" href={`${base}/projects`}>Explore projects</a>
+          <a class="btn" href={links.cv} target="_blank" rel="noopener">
+            <Icon name="download" size={15} /> CV
+          </a>
+          <a class="btn" href={links.github} target="_blank" rel="noopener"><Icon name="github" size={15} /> GitHub</a>
+          <a class="btn" href={links.scholar} target="_blank" rel="noopener"><Icon name="scholar" size={15} /> Scholar</a>
+        </div>
+      </div>
+    </div>
+    <div class="telemetry" id="telem">
+      sensor: LiDAR · <b>36</b> beams<br />
+      policy: <b>active</b> · obstacle-aware<br />
+      pos <span id="t-pos">[0.00, 0.00]</span> · v <span id="t-v">0.00</span>
+    </div>
+    <div class="scroll-hint"><span>scroll</span><span class="line"></span></div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stat-band">
+    <div class="wrap">
+      <div class="stat-strip">
+        <div><b><span data-count="11">11</span></b><span>open-source projects</span></div>
+        <div><b><span data-count="2">2</span></b><span>arXiv preprints</span></div>
+        <div><b>★<span data-count="53">53</span></b><span>navbot_ppo stars</span></div>
+        <div><b>Top <span data-count="0.2" data-dec="1">0.2</span>%</b><span>national M.Sc. rank</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOCUS -->
+  <section id="focus" class="pad">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">Research identity</div>
+        <h2 class="section-title">Three threads, one system.</h2>
+        <p class="lead">My work spans the full loop of an intelligent machine — sensing the world, learning a policy, and shipping it reliably. These threads reinforce each other.</p>
+      </div>
+      <div class="grid-3">
+        {focus.map((f, i) => (
+          <article class="card reveal" data-d={i + 1}>
+            <div class="ico"><Icon name={f.icon} size={22} /></div>
+            <h3>{f.title}</h3>
+            <p>{f.desc}</p>
+            <div class="chips">{f.chips.map((c) => <span class="chip">{c}</span>)}</div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED RESEARCH -->
+  <section id="research" class="pad">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">Featured research</div>
+        <h2 class="section-title">Published work.</h2>
+        <p class="lead">Peer-reviewable contributions in robot navigation and efficient perception. Full text on arXiv.</p>
+      </div>
+      <div class="reveal">
+        {pubs.map((p) => <PublicationRow entry={p} />)}
+      </div>
+      <div class="reveal" style="margin-top:28px">
+        <a class="btn" href={`${base}/research`}>All research <Icon name="arrow-right" size={15} /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PROJECTS -->
+  <section id="projects" class="pad">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">Selected work</div>
+        <h2 class="section-title">Evidence in code.</h2>
+        <p class="lead">Research, perception, and systems work — built, trained, and shipped.</p>
+      </div>
+
+      {navbot && (
+        <div class="spotlight reveal">
+          <div class="sp-media">
+            <video
+              class="js-inview-video"
+              src={`${base}/media/navbot_topview.mp4`}
+              poster={`${base}/media/navbot_topview_poster.jpg`}
+              muted loop playsinline preload="none"
+            ></video>
+            <span class="badge">Flagship · Deep RL</span>
+          </div>
+          <div class="sp-body">
+            <div class="eyebrow">Featured work</div>
+            <h3>{navbot.data.title}</h3>
+            <p>{navbot.data.description}</p>
+            <div class="sp-metrics">
+              <div><b>★ {navStat?.stars ?? 53}</b><span>GitHub stars</span></div>
+              <div><b>16-D</b><span>LiDAR state</span></div>
+              <div><b>mapless</b><span>no SLAM</span></div>
+            </div>
+            <div class="sp-tags">{navbot.data.tags.map((t) => <span class="chip">{t}</span>)}</div>
+            <div class="sp-cta">
+              <a class="btn primary" href={`${base}/projects/navbot-ppo`}>Case study <Icon name="arrow-right" size={15} /></a>
+              <a class="btn" href="https://github.com/hamidthri/navbot_ppo" target="_blank" rel="noopener"><Icon name="github" size={15} /> GitHub</a>
+              <a class="btn" href="https://arxiv.org/abs/2405.16266" target="_blank" rel="noopener">Paper</a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div class="proj-grid" style="margin-top:18px">
+        {featured.map((p, i) => (
+          <ProjectCard entry={p} stat={p.data.repo ? stats.get(p.data.repo) : null} delay={(i % 3) + 1} />
+        ))}
+      </div>
+      <div class="reveal" style="margin-top:28px">
+        <a class="btn" href={`${base}/projects`}>All projects <Icon name="arrow-right" size={15} /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section id="news" class="pad-sm">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">Recent</div>
+        <h2 class="section-title">News &amp; updates.</h2>
+      </div>
+      <div class="news reveal">
+        {news.map((n) => (
+          <div class="news-item">
+            <div class="date">{dateFmt(n.data.date)}</div>
+            <div class="text" set:html={n.data.link ? n.data.text.replace(/(arXiv:[\d.]+|navbot_ppo)/, `<a href="${n.data.link}" target="_blank" rel="noopener">$1</a>`) : n.data.text} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="pad">
+    <div class="wrap">
+      <div class="contact-panel reveal">
+        <h2>Open to <em>PhD opportunities</em>,<br />research &amp; engineering collaborations.</h2>
+        <p class="lead">In robotics, computer vision and intelligent systems. If your lab works on perception-aware autonomy, sim-to-real, or learning-based control — let's talk.</p>
+        <div class="contact-links">
+          <a class="btn primary" href={links.email}><Icon name="mail" size={15} /> Email me</a>
+          <a class="btn" href={links.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href={links.github} target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href={links.scholar} target="_blank" rel="noopener">Scholar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

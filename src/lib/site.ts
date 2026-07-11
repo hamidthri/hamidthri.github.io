@@ -26,10 +26,10 @@ export const links = {
 export const githubUser = 'hamidthri';
 
 export const navItems = [
+  { href: '/home', label: 'home' },
   { href: '/research', label: 'research' },
   { href: '/projects', label: 'projects' },
   { href: '/blog', label: 'notes' },
-  { href: '/about', label: 'about' },
   { href: '/contact', label: 'contact' },
 ] as const;
 
